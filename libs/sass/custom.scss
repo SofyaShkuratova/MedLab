@@ -1,0 +1,111 @@
+@media (max-width:420px)
+{
+	.product-grid-4 .col-12{
+    width:50% !important;
+  }
+}
+
+$black-color: #1a1a1a;
+$purple: #80A4FF;
+
+i.fa {
+  color: $black-color;
+  /* background-color: $black-color; */
+}
+
+div.container-for-all {
+  display: flex;
+  flex-direction: column;
+}
+
+div.box-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+
+  div#style_date {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+div.box-time {
+  border: 1px solid #9b9b9b;
+  border-radius: 10px;
+  padding: 10px;
+  color:#1a1a1a;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  align-items:center;
+  width: 170px;
+  margin-bottom: 10px;
+
+  >div {
+    width: fit-content;
+  }
+
+  &:hover {
+    border: 1px solid $purple;
+    color:$purple;
+    cursor: pointer;
+  }
+}
+
+div.search-style-1>div#searchResult {
+  background-color: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 20px;
+  padding: 10px;
+  position: absolute;
+  top: 70px;
+  z-index: 99;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  color:#1a1a1a;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  visibility: hidden;
+
+  
+  &.show {
+    visibility: visible;
+  }
+
+  div.search-line {
+    display: flex;
+    margin: 10px 10px 0;
+    gap: 10px;
+  }
+}
+
+div.box-container > div.box-time.highlighted {
+  border: 1px solid $purple;
+  color:$purple;
+}
+
+
+input#imageFile {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+
+div#userReviewDoctor.card.userReviewDoctor.hide {
+  display: none;
+  // opacity: 0;
+}
+div#userAnswer.card.userAnswer.hide {
+  display: none;
+}
+
+

@@ -1,0 +1,51 @@
+
+-- Создание структуры таблицы `roles`
+CREATE TABLE IF NOT EXISTS `roles` (
+    `id_role` int(11) NOT NULL AUTO_INCREMENT,
+    `role` varchar(16) NOT NULL,
+    PRIMARY KEY (`id_role`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=38;
+
+-- Вставка данных для таблицы `roles`
+INSERT INTO `roles` (`id_role`, `role`) VALUES
+(1, "admin"),
+(2, "user"),
+(3, "doctor");
+
+-- Создание структуры таблицы `users`
+CREATE TABLE IF NOT EXISTS `users` (
+    `id_user` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(16) NOT NULL,
+  	`last_name` varchar(32) NOT NULL,
+  	`second_name` varchar(32) NOT NULL,
+  	`phone` varchar(32) NOT NULL,
+  	`email` varchar(32) NOT NULL,
+  	`id_role` int(11) NOT NULL,
+  	`age` int(11) NOT NULL,
+  	`created_at` timestamp NOT NULL,
+  	`password` varchar(64) NOT NULL,
+  	`salt` varchar(64) NOT NULL,
+  	
+    PRIMARY KEY (`id_user`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=38;
+
+-- Вставка данных для таблицы `users`
+INSERT INTO `users` (`id_user`, `name`, `last_name`, `second_name`, `phone`, `email`, `id_role`, `age`, `created_at`, `password`, `salt`) VALUES
+(1, "Иван", "Георгиев", "Александрович", "447924677", "ivan.alex@gmail.com", 2, 18, "2020-03-05 01:12:26", "c7yXMGAGLt5e2km", `c7yXMGAGLt5e2km`),
+(2, "Света", "Недро", "Васильевна", "294567177", "sveta.vas@gmail.com", 2, 60, "2020-03-05 01:12:26", "c7yXMGAGLt5e2km", `c7yXMGAGLt5e2km`),
+(3, "Екатерина", "Висек", "Витальевна", "447924677", "akte.vit@gmail.com", 2, 10, "2020-03-05 01:12:26", "c7yXMGAGLt5e2km", `c7yXMGAGLt5e2km`);
+
+-- Создание структуры таблицы `categories`
+CREATE TABLE IF NOT EXISTS `categories` (
+    `id_category` int(11) NOT NULL AUTO_INCREMENT,
+    `title_category` varchar(40) NOT NULL,
+  	`description_category` text NOT NULL,
+  	
+    PRIMARY KEY (`id_category`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=38;
+
+-- Данные для таблицы `categories`
+INSERT INTO `categories` (`id_category`, `title_category`, `description_category`) VALUES
+(1, "Стоматология", "Это область медицины, которая занимается диагностикой, профилактикой и лечением заболеваний зубов, десен и челюстно-лицевой области. Услуги могут включать в себя профессиональную гигиену полости рта, лечение кариеса, протезирование, имплантацию зубов, ортодонтию и другие."),
+(2, "Хирургия", "Это область медицины, которая занимается лечением заболеваний, травм и деформаций различных частей тела с помощью оперативного вмешательства. Услуги могут включать в себя общую хирургию, травматологию, ортопедию, нейрохирургию, кардиохирургию и другие."),
+(3, "Онкология", "Это область медицины, которая занимается диагностикой, лечением и профилактикой злокачественных новообразований (рака). Услуги могут включать в себя химиотерапию, радиотерапию, иммунотерапию, хирургическое лечение рака и паллиативную терапию. Онкология также включает в себя проведение скрининговых исследований для раннего выявления рака.");
