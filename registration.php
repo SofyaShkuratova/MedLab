@@ -116,7 +116,6 @@ require_once "layout/layout_footer.php";
 <script type="text/javascript">
     $(document).ready(function(){
         $('#register-btn').on("click", function(e){
-            
             if($("#register-form")[0].checkValidity()) {
               e.preventDefault();
               // $("#register-btn").val('Please Wait...');
@@ -136,15 +135,6 @@ require_once "layout/layout_footer.php";
                   $("#phone").removeClass("border-danger bg-danger");
                   $("#phoneError").removeClass("text-danger");
                 }
-
-                //Проверка поля почты
-                // let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                // if (!emailRegex.test($("#email").val()) ) {
-                //   $("#emailError").text('* Введите корректный email-адрес');
-                //   isValid = false;
-                // } else {
-                //   $("#emailError").text('');
-                // }
                 
                 //Проверка поля пароля
                 let passwordRegex = /^(?=.*\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я])[0-9a-zA-Zа-яА-Я]{8,}$/ ;

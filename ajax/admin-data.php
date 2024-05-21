@@ -18,6 +18,8 @@ $services = new Service($db);
 $doctors = new Doctor($db);
 $doctorsservices = new DoctorService($db);
 
+
+
 if(isset($_POST['action']) && $_POST['action'] == 'createcateg') {
     // print_r($_POST);
     $title_category = $users->test_input($_POST['title_category']);
@@ -46,9 +48,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'show_Category') {
     $list = $categories->get_category();
     // print_r($list);
     if($list) {
-        $output .= "<select class='form-control' name='id_category' id='id_category'>
-                    <option value='' 
-                    ";
         foreach ($list as $row) {
             if($row['id_category'] == $id_category) {
                $output .= "<option selected value='".$row['id_category']."'>".$row['title_category']."</option>"; 
@@ -56,7 +55,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'show_Category') {
                 $output .= "<option value='".$row['id_category']."'>".$row['title_category']."</option>"; 
             }
         }
-        $output .= "</select>";
         print_r($output);
     } else {
         echo '<h3>Еще нет ни одной категории!</h3>';
@@ -70,15 +68,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'show_CategoryDoctor') {
     // print_r($id_category);
     $list2 = $categories->get_category();
     if($list) {
-        $output .= "<select class='form-control' name='id_category' id='id_category'> 
-                    ";
         foreach ($list as $row) {
-            // $output .= "<option selected value='".$row['id_category']."'>".$row['title_category']."</option>"; 
             $list_id_category = $row['id_category'];
         
             if($list2) {
                 foreach ($list2 as $row) {
-                    if($row == $list_id_category) {
+                    if($row['id_category'] == $list_id_category) {
                         $output .= "<option selected value='".$row['id_category']."'>".$row['title_category']."</option>"; 
                     }
                     $output .= "<option value='".$row['id_category']."'>".$row['title_category']."</option>"; 
@@ -91,78 +86,14 @@ if(isset($_POST['action']) && $_POST['action'] == 'show_CategoryDoctor') {
         echo '<h3>Еще нет ни одной категории!</h3>';
     }
 }
- //Если уже выбран доктор - вывод расписания
-if(isset($_POST['action']) && $_POST['action'] == 'display_timetableByDoctor') {
 
-    $output = '';
-    $id_doctor = $_POST['id_doctor'];
-
-    $list = $doctors->FindCategoryByDoctor($id_doctor);
-    // print_r($list);
-    if($list) {
-        foreach ($list as $row) {
-            $list_id_category = $row['id_category'];
-            $currDate = new DateTime();
-            $currentDate = $currDate->format("Y-m-d");
-
-            $list2 = $doctorsservices->getDoctorService($list_id_category, $id_doctor);
-            if($list2) {
-                $output .= "<h5>Ближайшие талоны</h5><br><div class='container-for-all'><div class='box-container'>";
-                foreach ($list2 as $row) {
-                    $id_timetable = $row['id_doctorservice'];
-
-                    $currentDate = new DateTime();
-                    $current_7 = $currentDate->modify('+7 days');
-                    $futureDate = $currentDate->format('Y-m-d');
-                    //Определяем дату сейчас
-                    $currDate = new DateTime();
-                    $curFormDate = $currDate->format('Y-m-d');
-                    //Преобразуем время к формату
-                    $time_work = date("H:i", strtotime($row['time_work']));
-                    $date = new DateTime($row['date_work']);
-                    $months = [
-                            1 => 'Янв.',
-                            2 => 'Февр.',
-                            3 => 'Март',
-                            4 => 'Апр.',
-                            5 => 'Май',
-                            6 => 'Июнь',
-                            7 => 'Июль',
-                            8 => 'Авг.',
-                            9 => 'Сент.',
-                            10 => 'Окт.',
-                            11 => 'Нояб.',
-                            12 => 'Дек.'
-                    ];
-                    $formattedDate = $date->format('d ') . $months[(int)$date->format('n')] . $date->format('. Y');
-
-                    // $output .= "<div class='box-time' id='timetable-".$id_timetable."'><div>Время: ".$time_work."</div><div>Дата: ".$formattedDate."</div></div>";
-                    $output .= "<div class='box-time' id='timetable-".$id_timetable."'><div>Время: ".$time_work."</div><div>Дата: ".$formattedDate."</div></div>";
-                }
-                $output .= "<div id='style_date'>
-                <label for='start'>Выберите дату</label>
-                <input type='date' id='date_value' name='trip-start' value='".$curFormDate."' min='".$curFormDate."' />
-                </div>
-            </div>
-            </div>";
-            
-            }
-        }
-        print_r($output);
-    } else {
-        echo '<h5>Нет записей на выбранные параметры</h5>';
-    }
-}
 if(isset($_POST['action']) && $_POST['action'] == 'show_DoctorInput') {
     $output = '';
     $id_doctor = $_POST['id_doctor'];
     $list = $doctors->FindCategoryByDoctor($id_doctor);
     // print_r($list);
     if($list) {
-        $output .= "<select class='form-control' name='id_doctor' id='id_doctor'>
-                    ";
             foreach ($list as $row) {
-                // $output .= "<option selected value='".$row['id_category']."'>".$row['title_category']."</option>"; 
                 $list_id_category = $row['id_category'];
                 $list2 = $doctors->get_doctors($list_id_category);
             
@@ -176,7 +107,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'show_DoctorInput') {
                     }
                 }
             }
-        $output .= "</select>";
         print_r($output);
     } else {
         echo '<h5>Еще нет ни одного доктора!</h5>';
@@ -190,13 +120,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_categories') {
     $list = $categories->get_category();
 
     if($list) {
-        $output .= "<select class='form-control' name='id_category' id='id_category'>
-                    <option>Категория...</option>
-                    ";
+        $output .= "<option value='0'>Категория...</option>";
         foreach ($list as $row) {
             $output .= "<option value='".$row['id_category']."'>".$row['title_category']."</option>";
         }
-        $output .= "</select>";
+        
         print_r($output);
     } else {
         echo '<h3>Еще нет ни одной категории!</h3>';
@@ -208,22 +136,18 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_doctors') {
     $output = '';
     
     $id_category = $users->test_input($_POST['category_id']);
-    
+
     $list = $doctors->get_doctors($id_category);
     // print_r($list);
     if($list) {
-         $output .= "<select class='form-control' name='id_doctor' id='id_doctor'>
-                     <option>Врач...</option>
-                     ";
-         foreach ($list as $row) {
-             $output .= "<option value='".$row['id_doctor']."'>".$row['doctor_lastname']." ".$row['doctor_name']." ".$row['doctor_secondname']."</option>";
-         }
-         $output .= "</select>";
+        foreach ($list as $row) {
+        $output .= "<option value='".$row['id_doctor']."'>".$row['doctor_lastname']." ".$row['doctor_name']." ".$row['doctor_secondname']."</option>";
+        }
         print_r($output);
     } else {
         echo '<h5>Еще нет ни одного врача данной категории!</h5>';
     }
-    // print_r($id_category);
+    print_r($id_category);
 }
 //Вывод талонов
 if(isset($_POST['action']) && $_POST['action'] == 'display_timetable') {
@@ -265,7 +189,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_timetable') {
                     12 => 'Дек.'
             ];
             $formattedDate = $date->format('d ') . $months[(int)$date->format('n')] . $date->format('. Y');
-
             // $output .= "<div class='box-time' id='timetable-".$id_timetable."'><div>Время: ".$time_work."</div><div>Дата: ".$formattedDate."</div></div>";
             $output .= "<div class='box-time' id='timetable-".$id_timetable."'><div>Время: ".$time_work."</div><div>Дата: ".$formattedDate."</div></div>";
         }

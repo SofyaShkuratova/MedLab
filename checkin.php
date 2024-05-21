@@ -25,7 +25,7 @@ require_once "layout/layout_header.php";
         <div class="container">
             <div class="breadcrumb">
                 <a href="index.html" rel="nofollow">Главная</a>
-                <span></span> Запись на прием <?php if(isset($_GET['id_doctor'])) { echo "Врач есть";} else {echo "Врача нет";} ?>
+                <span></span> Запись на прием 
             </div>
         </div>
     </div>
@@ -44,21 +44,27 @@ require_once "layout/layout_header.php";
 
                                     <?php 
                                     if(!isset($_SESSION['user'])) {
-                                        echo '
+                                        ?>
                                         <h5>Вы не авторизированы! <br> Войдите или зарегистрируйтесь!</h5>
-                                        ';
+                                        <?php
                                     } else {
                                         $userId = $data['id_user'];
-                                        echo '
+                                        ?>
                                         <form method="post" id="reservation-form">
                                             <div class="form-group">
                                                 <div class="custom_select" id="showCategory">
-
+                                                    <label for="id_category">Категория</label>
+                                                    <select class="form-control" name="id_category" id="id_category"> 
+                                                        
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom_select" id="showDoctor">
-
+                                                <label for="id_doctor">Врач</label>
+                                                    <select class="form-control" name="id_doctor" id="id_doctor"> 
+                                                        <option value="0">Врач...</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -70,12 +76,15 @@ require_once "layout/layout_header.php";
                                                     <input type="date" id="start" name="trip-start" placeholder="Выберите дату" value="2018-07-22" min="2018-01-01" max="2018-12-31" /> -->
                                                 </div>
                                             </div>
+                                            <div id="error">
+
+                                            </div>
 
                                             <div class="form-group">
                                                 <button type="submit" id="reservation-btn" class="btn btn-fill-out btn-block hover-up" name="reservation-btn">Записаться</button>
                                             </div>
                                         </form>
-                                    ';
+                                    <?php
                                     }
 
                                     ?>
@@ -105,25 +114,25 @@ require_once "layout/layout_footer.php";
     // Объявляем глобальные переменные
     let category_Id;
     let doctorId;
-    category_Id = "<?php if(isset($_GET['id_category'])) { echo $_GET['id_category'];} else {echo "пусто";} ?>";;
-    doctorId = "<?php if(isset($_GET['id_doctor'])) { echo $_GET['id_doctor'];} else {echo "пусто";} ?>";
 
+    category_Id = "<?php if(isset($_GET['id_category'])) { echo $_GET['id_category'];} else {echo "пусто";} ?>";;
+    doctorId = "<?php if(isset($_GET['id_doctor'])) { echo $_GET['id_doctor'];}  else {echo "пусто";} ?>";
+
+    let selectedDoctorId;
+    let selectedCategoryId;
+    
     console.log(category_Id);
     console.log(doctorId);
-    // var categoryValue;
+
 
     if(doctorId == "пусто" && category_Id == "пусто") {
-        displayCategories();
-        // console.log("Никто не выбран");
+        displayCategories();  
     } else if(category_Id == "пусто") {
-        console.log("Врач уже есть");
+        console.log("Врач уже есть его doctorId: " + doctorId) ;
         showCategoryAndDoctor(doctorId);
-        DoctorInputShow(doctorId);
-        DisplayTimeTableByDoctor(doctorId)
     } else if(doctorId == "пусто")  {
-        console.log("Категория уже есть");
+        console.log("Категория уже есть category_Id: " + category_Id);
         showCategory(category_Id);
-        displayDoctors(category_Id);
     }
 
     function showCategoryAndDoctor(id_doctor) {
@@ -133,31 +142,33 @@ require_once "layout/layout_footer.php";
             data: { action: 'show_CategoryDoctor', id_doctor: id_doctor},
             success: function(response) {
                 // console.log(response);
-                $("#showCategory").html(response);
+                $("#id_category").html(response);
+                category_Id = $("#id_category").val();
+                console.log("Category response:" + category_Id);
+                console.log("Doctor response:" + doctorId);
+                displayDoctorsByCategory(doctorId);
             }
         })
     }
-    function DoctorInputShow(id_doctor) {
+    function displayDoctorsByCategory(id_doctor) {
         $.ajax({
             url: 'ajax/admin-data.php',
             method: 'post',
             data: { action: 'show_DoctorInput' , id_doctor: id_doctor},
             success: function(response) {
-                $("#showDoctor").html(response);
-            }
-        })
-    }
-    function DisplayTimeTableByDoctor(id_doctor) {
-        $.ajax({
-            url: 'ajax/admin-data.php',
-            method: 'post',
-            data: { action: 'display_timetableByDoctor', id_doctor: id_doctor},
-            success: function(response) {
                 console.log(response);
-                $("#displayTimeTable").html(response);
-            }
+                $("#id_doctor").html(response);
+
+                selectedDoctorId = $("#id_doctor").val();
+                selectedCategoryId = $("#id_category").val();
+
+                console.log("Новое значение id_doctor = " + selectedDoctorId);
+                console.log("Новое значение id_category = " + selectedCategoryId);
+                displayTimetable(selectedCategoryId, selectedDoctorId);
+        }
         })
     }
+    
     
     function showCategory(id_category) {
         $.ajax({
@@ -166,12 +177,13 @@ require_once "layout/layout_footer.php";
             data: { action: 'show_Category', category_id:  id_category},
             success: function(response) {
                 console.log(response);
-                $("#showCategory").html(response);
+                $("#id_category").html(response);
+                
+                console.log("Мы тут" + category_Id);
+                displayDoctors(category_Id);
             }
         })
-    }   
-
-    // displayCategories();
+    }
 
     function displayCategories() {
         $.ajax({
@@ -180,18 +192,10 @@ require_once "layout/layout_footer.php";
             data: { action: 'display_categories' },
             success: function(response) {
                 console.log(response);
-                $("#showCategory").html(response);
+                $("#id_category").html(response);
             }
         })
     }
-    
-    $(document).on("change", "#id_category", function(e) {
-        category_Id = $(this).val();
-        console.log("Изменяется категория" + category_Id);
-        displayDoctors(category_Id);
-        $("#displayTimeTable").html('');
-    });
-    
     function displayDoctors(categoryId) {
         $.ajax({
             url: 'ajax/admin-data.php',
@@ -199,19 +203,37 @@ require_once "layout/layout_footer.php";
             data: { action: 'display_doctors', category_id: categoryId },
             success: function(response) {
                 console.log(response);
-                // $("#showDoctor").html(response);
+                $("#id_doctor").html(response);
+
+                selectedDoctorId = $("#id_doctor").val();
+                selectedCategoryId = $("#id_category").val();
+
+                console.log("Выбранное значение id_doctor = " + selectedDoctorId);
+                console.log("Выбранное значение id_category = " + selectedCategoryId);
+
+                displayTimetable(selectedCategoryId, selectedDoctorId);
             }
         })
     }
     
-    $(document).on("change", "#id_doctor", function(e) {
-        doctorId = $(this).val();
-        category_Id = $("#id_category").val();
-        console.log("А категория осталась: "+category_Id);
-        console.log("Изменяется доктор: "+doctorId);
-        displayDoctors(category_Id);
-        displayTimetable(category_Id, doctorId);
-    });  
+    // Вызываем функцию displayDoctors при изменении значения в #id_category
+    $("#id_category").change(function() {
+        let selectedCategoryId = $(this).val();
+        console.log("Выбранное значение id_category = " + selectedCategoryId);
+        if (selectedCategoryId) {
+            displayDoctors(selectedCategoryId);
+            // console.log("111111Выбранное значение id_doctor = " + selectedDoctorId);
+        }
+    });
+    $("#id_doctor").change(function() {
+        selectedDoctorId = $(this).val();
+        // if ($("#id_category").val() == 0 && selectedDoctorId) {
+        console.log("id_doctor = " + selectedDoctorId);
+        
+        displayTimetable(selectedCategoryId, selectedDoctorId);
+    });
+
+    
     
     function displayTimetable(categoryId, doctorId) {
         $.ajax({
@@ -219,7 +241,7 @@ require_once "layout/layout_footer.php";
             method: 'post',
             data: { action: 'display_timetable', id_category: categoryId, id_doctor: doctorId},
             success: function(response) {
-                // console.log(response);
+                console.log(response);
                 $("#displayTimeTable").html(response);
             }
         })
@@ -229,11 +251,14 @@ require_once "layout/layout_footer.php";
         dateValue = $(this).val();
         console.log(dateValue);
         if (dateValue == '') {
-            displayTimetable(category_Id, doctorId);
+            displayTimetable(selectedCategoryId, selectedDoctorId);
             console.log(dateValue);
         } else {
-            filterDate(dateValue, category_Id, doctorId);
+            filterDate(dateValue, selectedCategoryId, selectedDoctorId);
             console.log(dateValue);
+            console.log("Сейчас категория = "+selectedCategoryId);
+            console.log("Сейчас доктор = "+selectedDoctorId);
+
         }
     });
 
@@ -270,7 +295,21 @@ require_once "layout/layout_footer.php";
             e.preventDefault();
 
             //валидация данных!!!
-            insertData(id_user, id_categorydoctor);
+            if(id_categorydoctor == undefined) {
+                $("#error").text("! Заполните форму");
+                $("#error").addClass("mb-10 text-danger");
+                $("#id_category").addClass("border-danger bg-danger text-danger");
+                $("#id_doctor").addClass("border-danger bg-danger text-danger");
+            } else {
+                $("#error").text("");
+                $("#id_category").removeClass("border-danger bg-danger text-danger");
+                $("#id_doctor").removeClass("border-danger bg-danger text-danger");
+                $("#error").removeClass("mb-10 text-danger");
+                console.log(id_categorydoctor);
+            }
+            
+
+            // insertData(id_user, id_categorydoctor);
         }
     });
 
