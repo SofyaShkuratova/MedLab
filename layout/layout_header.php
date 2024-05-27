@@ -30,7 +30,8 @@ $reservations = new TimeTable($db);
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <link rel="shortcut icon" href="libs/imgs/logo/logo.png" type="image/x-icon">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
     <!-- bootstrap CSS -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
 
@@ -391,8 +392,8 @@ $reservations = new TimeTable($db);
             </div>
             <div class="mobile-header-content-area">
                 <div class="mobile-search search-style-3 mobile-header-border">
-                    <form action="#">
-                        <input type="text" placeholder="Поиск…">
+                    <form action="#" autocomplete="off">
+                        <input autocomplete="off" type="text" placeholder="Поиск…">
                         <button type="submit"><i class="fi-rs-search"></i></button>
                     </form>
                 </div>
@@ -457,7 +458,7 @@ $reservations = new TimeTable($db);
 
     let searchData;
 
-    $(document).on("change", "#search-input", function(e) {
+    $(document).on("input", "#search-input", function(e) {
         e.preventDefault();
         
         $("#searchResult").addClass("show");
@@ -482,7 +483,6 @@ $reservations = new TimeTable($db);
             success: function(response) {
                 console.log(response);
                 $("#searchResult").html(response);
-                
             }
         })
     }

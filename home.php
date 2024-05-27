@@ -51,7 +51,7 @@ require_once "layout/layout_header.php";
                     </div>
                     <div class="col-lg-7 col-md-6">
                         <div class="single-slider-img single-slider-img-1">
-                            <img class="animated slider-1-1" src="libs/imgs/slider/slider-1.svg" alt="">
+                            <img class="animated slider-1-1" src="libs/imgs/slider/slider-1.png" alt="">
                         </div>
                     </div>
                 </div>

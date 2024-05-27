@@ -60,7 +60,7 @@ require_once "layout/layout_header.php";
                         </div>
                         <div class="col-md-8">
                             <div class="tab-content dashboard-content">
-                                <div class="tab-pane fade " id="dashboard" role="tabpanel"
+                                <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
                                     aria-labelledby="dashboard-tab">
                                     <div class="card">
                                         <div class="card-header">
@@ -94,6 +94,7 @@ require_once "layout/layout_header.php";
                                                             <th>Дата</th>
                                                             <th>Время</th>
                                                             <th>Статус</th>
+                                                            <th>Отменить</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="DoctorTimetable">
@@ -169,33 +170,37 @@ require_once "layout/layout_header.php";
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade active show" id="account-detail" role="tabpanel"
-                                    aria-labelledby="account-detail-tab">
+                                <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
                                     <div class="card mb-20">
                                         <div class="card-header">
                                             <h5>Добавить запись в расписание</h5>
                                         </div>
                                         <div class="card-body">
-                                            <form method="post" name="enq">
+                                            <form method="post" name="enq" id="timetable-form">
                                                 <div class="row">
                                                     <div class="form-group col-md-6 centered">
-                                                        <!-- <label>Дата</label> -->
                                                         <input type="text" id="my-datepicker" class="mb-10">
+                                                        <div class="SelectedDates"></div>
                                                     </div>
                                                     <div class="form-group col-md-6" id="">
-
+                                                        <label for="FromTime">С</label>
+                                                        <input type="text" id="f-timepicker" name="FromTime" class="mb-10">
+                                                        <label for="ToTime">До</label>
+                                                        <input type="text" id="s-timepicker" name="ToTime class="mb-10">
+                                                        <div id="showAllTime"></div>
+                                                        <div id="showSuccess"></div>
                                                     </div>
                                                 </div > 
                                                     
-                                                    <div class="col-md-12 mt-20">
-                                                        <button type="submit" class="btn btn-fill-out submit"
-                                                            name="submit" value="Submit">Добавить расписание</button>
-                                                    </div>
+                                                <div class="col-md-12 mt-20">
+                                                    <button type="submit" class="btn btn-fill-out submit"
+                                                        name="submit" value="Submit" id="add-timetable-btn">Добавить расписание</button>
                                                 </div>
+                                                
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="card">
+                                    <div class="card mt-20">
                                         <div class="card-header">
                                             <h5 class="mb-0">Полное расписание</h5>
                                         </div>
@@ -208,9 +213,22 @@ require_once "layout/layout_header.php";
                                                             <th>Дата</th>
                                                             <th>Время</th>
                                                             <th>Статус</th>
+                                                            <th>Удалить</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="FullTimetable">
+                                                        <!-- <tr>
+                                                            <th>23</th>
+                                                            <th>12</th>
+                                                            <th>Время</th>
+                                                            <th>Статус</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>23</th>
+                                                            <th>12</th>
+                                                            <th>Время</th>
+                                                            <th>Статус</th>
+                                                        </tr> -->
                                                         
                                                     </tbody>
                                                 </table>
@@ -233,6 +251,10 @@ require_once "layout/layout_footer.php";
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="node_modules/air-datepicker/air-datepicker.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ru.js"></script>
+
 <script type="text/javascript">
     displayTable();
     function displayTable() {
@@ -241,7 +263,7 @@ require_once "layout/layout_footer.php";
             method: 'post',
             data: { action: 'display_doctortimetable'},
             success: function(response) {
-                console.log(response);
+                // console.log(response);
                 $("#DoctorTimetable").html(response);
             }, 
             error: function(xhr, status, error) 
@@ -251,6 +273,7 @@ require_once "layout/layout_footer.php";
             }
         })
     };
+    
     displayTimeTable();
     function displayTimeTable() {
         $.ajax({
@@ -258,7 +281,7 @@ require_once "layout/layout_footer.php";
             method: 'post',
             data: { action: 'display_timetable'},
             success: function(response) {
-                console.log(response);
+                // console.log(response);
                 $("#FullTimetable").html(response);
             }, 
             error: function(xhr, status, error) 
@@ -270,45 +293,96 @@ require_once "layout/layout_footer.php";
     };
 
     let resultBlock;
+    let block;
 
-    new AirDatepicker('#my-datepicker', {
+    new AirDatepicker("#my-datepicker", {
         inline: true,
-        minDate: new Date(),
         multipleDates: true,
-        range: true,
-        timepicker: true,
-        timeFormat: "H:mm",
-        minHours: 9,
-        maxHours: 22,
-        hoursStep: 1,
-        maxMinutes: 0,
-
-        onSelect: function(date, formattedDate) {
-        // let timeFrom = document.getElementById('timeFrom').value; // Получить время начала из input
-        // let timeTo = document.getElementById('timeTo').value; // Получить время окончания из input
-
-        // console.log(date['formattedDate']);
-            
-        resultBlock = date['formattedDate'];
-        console.log(resultBlock);
-        // resultBlock.innerHTML = ''; // Очистить блок результатов
-
-        // formattedDates.forEach(function(date) {
-        //     var dateBlock = document.createElement('div');
-        //     dateBlock.textContent = date + ' время с ' + timeFrom + ' до ' + timeTo;
-
-        //     var closeButton = document.createElement('button');
-        //     closeButton.textContent = 'X';
-        //     closeButton.onclick = function() {
-        //         resultBlock.removeChild(dateBlock); // Удалить эту дату при нажатии на крестик
-        //     };
-
-        //     dateBlock.appendChild(closeButton);
-        //     resultBlock.appendChild(dateBlock);
-        // });
-        }
+        minDate: new Date(),
     });
 
-    console.log(resultBlock);
+    $(document).ready(function(){
+        let id_doctor = <?php echo $cid?>;
+
+        $('#add-timetable-btn').on("click", function(e){
+            e.preventDefault();
+
+            if($("#timetable-form")[0].checkValidity()) {
+                let datesString =  $("#my-datepicker").val();
+                // Определение массива дат
+                let datesArray = datesString.split(", ");
+                
+                // Определите начальное и конечное время (в часах)
+               let starttime = +$("#f-timepicker").val();
+               let endtime = +$("#s-timepicker").val();
+               //Интервал времени
+               const hourInterval = 1;
+                // Перебираем даты
+                for (let i = 0; i < datesArray.length; i++) {
+                    const currentDate = datesArray[i];
+                    // Перебираем часы
+                    for (let currentHour = starttime; currentHour < endtime; currentHour += hourInterval) {                     
+                        console.log("Дата: " + currentDate + " Время: " + currentHour);
+                        DateTime(currentDate, currentHour, id_doctor);
+                        displayTimeTable();
+                    }
+                }
+            }
+        });
+
+        let combinedResponses = "";
+
+        function DateTime(date, time, id) {
+            $.ajax({
+                url:'ajax/doctor-data.php',
+                method: 'post',
+                data: { action: 'add_timetable', date: date, time: time, id: id },
+                success: function(response) {
+                    combinedResponses += response + '';
+
+                    $("#showAllTime").html(combinedResponses);
+                    $("#showSuccess").html('<div class="text-success error-div mt-5" ><strong>Записи добавлены!</strong><button class="close-btn text-success bg-success" >&times;</button></div>');
+                    
+                    // console.log(response);
+                    displayTimeTable();
+
+                    $("#timetable-form")[0].reset();
+                    // document.querySelector("#my-datepicker").value = "";
+                    
+                }, 
+                error: function(xhr, status, error) {
+                    console.log("Status: " + status);
+                    console.log("Error: " + error);
+                }
+            });
+        }
+
+    });
+    flatpickr("#f-timepicker", {
+        // "locale": Russian
+        "locale": "ru",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H",
+        time_24hr: true,
+        minTime: "8:00",
+        maxTime: "22:00"
+    });
+    flatpickr("#s-timepicker", {
+        // "locale": Russian
+        "locale": "ru",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H",
+        time_24hr: true,
+        minTime: "8:00",
+        maxTime: "22:00"
+    });
+
+    // document.querySelector("#my-datepicker").addEventListener("change", () => {
+    //     console.log(document.querySelectorAll(".flatpickr-day.selected"));
+    // })
+
+
 </script>
 

@@ -144,70 +144,7 @@ require_once "layout/layout_header.php";
                                     </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade " id="track-orders" role="tabpanel"
-                                    aria-labelledby="track-orders-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mb-0">Orders tracking</h5>
-                                        </div>
-                                        <div class="card-body contact-from-area">
-                                            <p>To track your order please enter your OrderID in the box below and press
-                                                "Track" button. This was given to you on your receipt and in the
-                                                confirmation email you should have received.</p>
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <form class="contact-form-style mt-30 mb-50" action="#"
-                                                        method="post">
-                                                        <div class="input-style mb-20">
-                                                            <label>Order ID</label>
-                                                            <input name="order-id"
-                                                                placeholder="Found in your order confirmation email"
-                                                                type="text" class="square">
-                                                        </div>
-                                                        <div class="input-style mb-20">
-                                                            <label>Billing email</label>
-                                                            <input name="billing-email"
-                                                                placeholder="Email you used during checkout"
-                                                                type="email" class="square">
-                                                        </div>
-                                                        <button class="submit submit-auto-width"
-                                                            type="submit">Track</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="card mb-3 mb-lg-0">
-                                                <div class="card-header">
-                                                    <h5 class="mb-0">Billing Address</h5>
-                                                </div>
-                                                <div class="card-body">
-                                                    <address>000 Interstate<br> 00 Business Spur,<br> Sault Ste.
-                                                        <br>Marie, MI 00000</address>
-                                                    <p>New York</p>
-                                                    <a href="#" class="btn-small">Edit</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <h5 class="mb-0">Shipping Address</h5>
-                                                </div>
-                                                <div class="card-body">
-                                                    <address>4299 Express Lane<br>
-                                                        Sarasota, <br>FL 00000 USA <br>Phone: 1.000.000.0000</address>
-                                                    <p>Sarasota</p>
-                                                    <a href="#" class="btn-small">Edit</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="tab-pane fade " id="account-detail" role="tabpanel"
                                     aria-labelledby="account-detail-tab">
                                     <div class="card">
@@ -215,50 +152,58 @@ require_once "layout/layout_header.php";
                                             <h5>Изменить данные аккаунта</h5>
                                         </div>
                                         <div class="card-body">
-                                            <form method="post" name="enq">
+                                            <form method="post" id="change-form">
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <label>Имя</label>
-                                                        <input required="" class="form-control square" name="name"
-                                                            type="text">
+                                                        <input class="form-control square" name="name"
+                                                            type="text" id="name">
+                                                        <div id="nameError"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Фамилия</label>
-                                                        <input required="" class="form-control square" name="lname">
+                                                        <input class="form-control square" name="lname" id="lname">
+                                                        <div id="lnameError"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Отчество</label>
-                                                        <input required="" class="form-control square" name="sname"
+                                                        <input class="form-control square" name="sname" id="sname"
                                                             type="text">
+                                                        <div id="snameError"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Возраст</label>
-                                                        <input required="" class="form-control square" name="age"
+                                                        <input class="form-control square" name="age" id="age"
                                                             type="text">
+                                                        <div id="ageError"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Email</label>
-                                                        <input required="" class="form-control square" name="email"
-                                                            type="email">
+                                                        <input class="form-control square" name="email" id="email"
+                                                            type="text">
+                                                        <div id="emailError"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Телефон</label>
-                                                        <input required="" class="form-control square" name="phone"
-                                                            type="email">
+                                                        <input class="form-control square" name="phone" id="phone"
+                                                            type="text">
+                                                        <div id="phoneError"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Новый пароль</label>
-                                                        <input required="" class="form-control square" name="npassword"
+                                                        <input class="form-control square" name="npassword" id="npassword"
                                                             type="password">
+                                                        <div id="npassError"></div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Повторить пароль</label>
-                                                        <input required="" class="form-control square" name="cpassword"
+                                                        <input class="form-control square" name="cpassword" id="cpassword"
                                                             type="password">
+                                                        <div id="cpassError"></div>
                                                     </div>
                                                     <div class="col-md-12 mt-20">
                                                         <button type="submit" class="btn btn-fill-out submit"
-                                                            name="submit" value="Submit">Изменить данные</button>
+                                                            name="submit" value="Submit" id="btn-change">Изменить данные</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -403,5 +348,180 @@ require_once "layout/layout_footer.php";
             console.log("Error: " + error);
             }
         })
+    }
+
+    $(document).on("click", "#btn-change", function(e) {
+        if ($("#change-form")[0].checkValidity()) {
+                e.preventDefault();
+
+                function validateForm() {
+                    let isValid = true;
+                    return isValid;
+                }
+                let name;
+                let lname;
+                let sname;
+                let age;
+                let email;
+                let phone;
+                let npassword;
+                let cpassword;
+            
+                if ($("#name").val() != "") {
+                    let nameRegex =  /^[a-zA-Z]+$/ ;
+                    if(!nameRegex.test($("#name").val()) ){
+                        console.log("не сработало");
+                        $("#nameError").text('Имя должно содержать только буквы');
+                        $("#nameError").addClass("text-danger");
+                        $("#name").addClass("border-danger bg-danger");
+                    } else {
+                        name = $("#name").val();
+                        console.log("сработало");
+                        $("#nameError").addClass("text-success");
+                        $("#name").addClass("border-success bg-success");
+                        $("#name").removeClass("border-danger bg-danger");
+                    }
+                    // console.log(name);
+                } else {
+                    console.log("Пустой name");
+                }
+
+                if ($("#lname").val() != "") {
+                    let nameRegex =  /^[a-zA-Z]+$/ ;
+
+                    if(!nameRegex.test($("#lname").val()) ){
+                        console.log("не сработало");
+                        $("#lnameError").text('Фамилия должна содержать только буквы');
+                        $("#lnameError").addClass("text-danger");
+                        $("#lname").addClass("border-danger bg-danger");
+                    } else {
+                        lname = $("#lname").val();
+                        console.log("сработало");
+                        $("#lnameError").addClass("text-success");
+                        $("#lname").addClass("border-success bg-success");
+                        $("#lname").removeClass("border-danger bg-danger");
+                    }
+                } else {
+                    console.log("Пустой lname");
+                }
+
+                if ($("#sname").val() != "") {
+                    let nameRegex =  /^[a-zA-Z]+$/ ;
+
+                    if(!nameRegex.test($("#sname").val()) ){
+                        console.log("не сработало");
+                        $("#snameError").text('Отчество должно содержать только буквы');
+                        $("#snameError").addClass("text-danger");
+                        $("#sname").addClass("border-danger bg-danger");
+                    } else {
+                        sname = $("#sname").val();
+                        console.log("сработало");
+                        $("#snameError").addClass("text-success");
+                        $("#sname").addClass("border-success bg-success");
+                        $("#sname").removeClass("border-danger bg-danger");
+                    }
+                } else {
+                    console.log("Пустой sname");
+                }
+
+                if ($("#age").val() != "") {
+                    let ageRegex =  /^(1[4-9]|[2-9][0-9]|100)$/ ;
+
+                    if(!ageRegex.test($("#age").val()) ){
+                        console.log("не сработало");
+                        $("#ageError").text('Возраст должен содержать только цифры');
+                        $("#ageError").addClass("text-danger");
+                        $("#age").addClass("border-danger bg-danger");
+                    } else {
+                        age = $("#age").val();
+                        console.log("сработало");
+                        $("#ageError").addClass("text-success");
+                        $("#age").addClass("border-success bg-success");
+                        $("#age").removeClass("border-danger bg-danger");
+                    }
+                } else {
+                    console.log("Пустой age");
+                }
+
+                if ($("#email").val() != "") {
+                    let emailRegex =  /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/ ;
+
+                    if(!emailRegex.test($("#email").val()) ){
+                        console.log("не сработало");
+                        $("#emailError").text('Введите корректный email-адрес');
+                        $("#emailError").addClass("text-danger");
+                        $("#email").addClass("border-danger bg-danger");
+                    } else {
+                        email = $("#email").val();
+                        console.log("сработало email");
+                        $("#emailError").addClass("text-success");
+                        $("#email").addClass("border-success bg-success");
+                        $("#email").removeClass("border-danger bg-danger");
+                    }
+                } else {
+                    console.log("Пустой email");
+                }
+
+                if ($("#phone").val() != "") {
+                    let phoneRegex =  /^\+375(44|29|33)\d{7}$/ ;
+
+                    if(!phoneRegex.test($("#phone").val()) ){
+                        console.log("не сработало");
+                        $("#phoneError").text('Введите корректный номер телефона с кодом +375 и последующими цифрами 44, 29 или 33, а затем еще 7 цифр');
+                        $("#phoneError").addClass("text-danger");
+                        $("#phone").addClass("border-danger bg-danger");
+                    } else {
+                        phone = $("#phone").val();
+                        console.log("сработало phone");
+                        $("#phoneError").addClass("text-success");
+                        $("#phone").addClass("border-success bg-success");
+                        $("#phone").removeClass("border-danger bg-danger");
+                    }
+                } else {
+                    console.log("Пустой phone");
+                }
+
+                if ($("#npassword").val() != "") {
+                    let npasswordRegex =  /^(?=.*\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я])[0-9a-zA-Zа-яА-Я]{8,}$/ ;
+
+                    if(!npasswordRegex.test($("#npassword").val()) ){
+                        console.log("не сработало");
+                        $("#npassError").text('Пароль должен содержать минимум 8 символов, 1 маленькую букву, 1 большую букву и цифры');
+                        $("#npassError").addClass("text-danger");
+                        $("#npassword").addClass("border-danger bg-danger");
+                    } else {
+                        npassword = $("#npassword").val();
+                        console.log("сработало npassword");
+                        $("#npassError").addClass("text-success");
+                        $("#npassword").addClass("border-success bg-success");
+                        $("#npassword").removeClass("border-danger bg-danger");
+                    }
+                } else {
+                    console.log("Пустой npassword");
+                }
+
+                if ($("#cpassword").val() != "") {
+                    
+                    if($("#cpassword").val() != $("#npassword").val()){
+                        console.log("не сработало");
+                        $("#cpassError").text('Пароль не совпадает, попробуйте еще раз');
+                        $("#cpassError").addClass("text-danger");
+                        $("#cpassword").addClass("border-danger bg-danger");
+                    } else {
+                        cpassword = $("#cpassword").val();
+                        console.log("сработало cpassword");
+                        $("#cpassError").addClass("text-success");
+                        $("#cpassword").addClass("border-success bg-success");
+                        $("#cpassword").removeClass("border-danger bg-danger");
+                    }
+                } else {
+                    console.log("Пустой cpassword");
+                } 
+                
+        }
+    });
+
+    function UpdateInformation() {
+        
     }
 </script>

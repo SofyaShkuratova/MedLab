@@ -98,7 +98,7 @@ require_once "layout/layout_header.php";
                                 </div>
                             </div>                            
                             <div class="col-lg-6">
-                               <img src="libs/imgs/login.png">
+                               <img src="libs/imgs/login.jpg" style="border-radius:10px">
                             </div>
                         </div>
                     </div>
@@ -135,6 +135,15 @@ require_once "layout/layout_footer.php";
                   $("#phone").removeClass("border-danger bg-danger");
                   $("#phoneError").removeClass("text-danger");
                 }
+
+                //Проверка поля почты
+                // let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                // if (!emailRegex.test($("#email").val()) ) {
+                //   $("#emailError").text('* Введите корректный email-адрес');
+                //   isValid = false;
+                // } else {
+                //   $("#emailError").text('');
+                // }
                 
                 //Проверка поля пароля
                 let passwordRegex = /^(?=.*\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я])[0-9a-zA-Zа-яА-Я]{8,}$/ ;

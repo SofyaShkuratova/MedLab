@@ -99,12 +99,13 @@ class Users  {
 
     //Error Success Message Alert 
     public function showMessage($type, $message, $bg, $color) {
-        return '
+        echo '
                 <div class="' .$type.' error-div" >
                     <strong>' .$message. '</strong>
                     <button class="close-btn '.$bg.' '.$color.'" >&times;</button>
                 </div>';
     }
+
     public function date() {
         return date('Y-m-d H:i:s');
     }

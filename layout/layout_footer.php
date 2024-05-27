@@ -120,6 +120,8 @@
 
 <!-- DatePicker UI -->
 <script src="node_modules/air-datepicker/air-datepicker.js"></script>
+<!-- Flat -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </body>
 

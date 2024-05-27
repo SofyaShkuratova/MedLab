@@ -74,7 +74,7 @@ require_once "layout/layout_header.php";
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-6">
-                               <img src="libs/imgs/login.png">
+                               <img style="border-radius:10px" src="libs/imgs/login.jpg">
                             </div>
                         </div>
                     </div>

@@ -54,7 +54,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'search_data') {
 
             $output .= "
                 <div class='search-line'>
-                    <a href='product-detail-doctor.php?id_category=".$id_doctor."'>
+                    <a href='doctor-details.php?id_doctor=".$id_doctor."'>
                         ".$last_name." ".$name." ".$second_name. "
                     </a>
                     / 

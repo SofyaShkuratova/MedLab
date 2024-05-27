@@ -23,7 +23,7 @@ require_once "layout/layout_header.php";
                         <h1 class="font-heading mb-40">
                             Мы строим здоровое будущее наших пациентов
                         </h1>
-                        <p>Tempus ultricies augue luctus et ut suscipit. Morbi arcu, ultrices purus dolor erat bibendum sapien metus.</p>
+                        <p>Добро пожаловать в медицинский центр MedLab! Мы предоставляем высококачественные медицинские услуги, ориентированные на заботу о вашем здоровье и благополучии.</p>
                     </div>
                     <div class="col-lg-6">
                         <img src="libs/imgs/video/poster.png" alt="">
@@ -44,31 +44,32 @@ require_once "layout/layout_header.php";
                     <div class="col-md-6 col-lg-4">
                         <div class="hero-card box-shadow-outer-6 wow fadeIn animated mb-30 hover-up d-flex">
                             <div class="hero-card-icon icon-left-2 hover-up ">
-                                <!-- <img class="btn-shadow-brand hover-up border-radius-5 bg-brand-muted" src="libs/imgs/page/avatar-1.jpg" alt=""> -->
+                                <!-- <img class="btn-shadow-brand hover-up border-radius-5 bg-brand-muted" src="libs/imgs/page/avatar-3.jpg" alt=""> -->
                             </div>
                             <div class="pl-30">
                                 <h5 class="mb-5 fw-500">
-                                    Ж. Иосифов
+                                    Иван, 42 года
                                 </h5>
-                                <p class="font-sm text-grey-5">Стоматология</p>
-                                <p class="text-grey-3">"Прекрасная клиника, прекрасные люди!"</p>
+                                <p class="font-sm text-grey-5">Хирургия</p>
+                                <p class="text-grey-3">“MedLab - это место, где я всегда могу получить квалифицированную помощь. Врачи заботятся о каждом пациенте, и это действительно ценно.”</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="hero-card box-shadow-outer-6 wow fadeIn animated mb-30 hover-up d-flex">
                             <div class="hero-card-icon icon-left-2 hover-up ">
-                                <!-- <img class="btn-shadow-brand hover-up border-radius-5 bg-brand-muted" src="libs/imgs/page/avatar-3.jpg" alt=""> -->
+                                <!-- <img class="btn-shadow-brand hover-up border-radius-5 bg-brand-muted" src="libs/imgs/page/avatar-1.jpg" alt=""> -->
                             </div>
                             <div class="pl-30">
                                 <h5 class="mb-5 fw-500">
-                                    С. Крюкова
+                                    Анна, 35 лет
                                 </h5>
-                                <p class="font-sm text-grey-5">Adobe Jsc</p>
-                                <p class="text-grey-3">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nesciunt voluptatum dicta reprehenderit accusamus voluptatibus voluptas."</p>
+                                <p class="font-sm text-grey-5">Стоматология</p>
+                                <p class="text-grey-3">“Я долгое время страдала от хронических болей в спине. Благодаря врачам MedLab мои проблемы были успешно решены. Отличный сервис и профессиональный подход!”</p>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-md-6 col-lg-4">
                         <div class="hero-card box-shadow-outer-6 wow fadeIn animated mb-30 hover-up d-flex">
                             <div class="hero-card-icon icon-left-2 hover-up ">
@@ -76,10 +77,10 @@ require_once "layout/layout_header.php";
                             </div>
                             <div class="pl-30">
                                 <h5 class="mb-5 fw-500">
-                                    С. Мазурова
+                                    Елена, 28 лет
                                 </h5>
-                                <p class="font-sm text-grey-5">Adobe Jsc</p>
-                                <p class="text-grey-3">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nesciunt voluptatum dicta reprehenderit accusamus voluptatibus voluptas."</p>
+                                <p class="font-sm text-grey-5">Дерматология</p>
+                                <p class="text-grey-3">“Мне понравилась атмосфера в MedLab. Все сотрудники дружелюбны и внимательны. Я чувствую себя в надежных руках.”</p>
                             </div>
                         </div>
                     </div>

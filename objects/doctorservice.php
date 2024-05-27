@@ -143,6 +143,49 @@ class DoctorService {
         $row = $result->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+
+
+    //Проверка существует ли запись с данными датой и временем
+    public function date_exist($date_work, $time_work, $id_doctor) {
+        $sql = "SELECT id_doctor, date_work, time_work FROM
+                ".$this->table_name."
+                WHERE date_work = :date_work AND
+                      time_work = :time_work  AND
+                      id_doctor = :id_doctor";
+        $result = $this->conn->prepare($sql);
+        $result->execute([  'date_work'=>$date_work, 
+                            'time_work'=>$time_work,
+                            'id_doctor'=>$id_doctor
+                        ]);
+
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+
+
+    //Создание записи в БД
+    public function insert_timetable($id_doctor, $id_category,  $time_work, $date_work) {
+        $status = 'free';
+        $sql_insert = "
+                    INSERT INTO 
+                    ".$this->table_name."
+                    SET 
+                    id_doctor=:id_doctor,
+                    id_category=:id_category,
+                    status=:status,
+                    time_work=:time_work,
+                    date_work=:date_work
+                    "; 
+            
+        $stmt_insert = $this->conn->prepare($sql_insert);
+        $stmt_insert->execute(['id_doctor'=>$id_doctor,
+                                'id_category'=>$id_category,
+                                'status'=>$status,
+                                'time_work'=>$time_work,
+                                'date_work'=>$date_work
+                            ]);
+
+        return true;
+    }
 }   
 
-?>

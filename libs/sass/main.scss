@@ -328,12 +328,18 @@ thead {
     justify-content: space-between;
     width: 100%;
   
-    button.close-btn {
+    td>button.close-btn {
       border: none;
       border-radius: 50px;
       
       width: 24px;
     }
+  }
+  button.close-btn {
+    border: none;
+    border-radius: 50px;
+    
+    width: 24px;
   }
   
   .bg-success {
@@ -1656,12 +1662,14 @@ thead {
   .hero-slider-1 .single-slider-img-1 {
     height: 500px;
     position: relative;
+    z-index: -9999;
   }
   
   .hero-slider-1 .single-slider-img-1 .slider-1-1 {
     position: absolute;
-    bottom: 30px;
+    bottom: -20px;
     right: 0;
+    z-index: -9999;
   }
   
   .hero-slider-1 .single-slider-img-1 .slider-1-2 {
