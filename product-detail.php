@@ -74,19 +74,7 @@ require_once "layout/layout_header.php";
                                             <p><?=$list['description_category']?></p>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
-                                        <!-- <div class="short-desc mb-30">
-                                            <div class="product-price primary-color float-left">
-                                                <h3>Свободные талоны:</h3>
-                                                <div class="container-appoint">
-                                                    <div class="free-appointment">14:00</div>
-                                                    <div class="free-appointment">15:00</div>
-                                                    <div class="free-appointment">14:00</div>
-                                                    <div class="free-appointment"></div>
-                                                    <div class="free-appointment"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="bt-1 border-color-1 mt-30 mb-30"></div> -->
+                                        
                                         <div class="detail-extralink">
                                             
                                         <a  class="btn" href="checkin.php?id_category=<?= $list['id_category']; ?>">Записаться на прием</a>
@@ -100,9 +88,6 @@ require_once "layout/layout_header.php";
                                 <ul class="nav nav-tabs text-uppercase">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Услуги</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="Description-tab" data-bs-toggle="tab" href="#Description">Подробная информация</a>
                                     </li>
                                     
                                 </ul>
@@ -133,14 +118,7 @@ require_once "layout/layout_header.php";
                                             
                                         </table>
                                     </div>
-                                    <div class="tab-pane fade" id="Description">
-                                        <div class="">
-                                            <p>
-                                                Uninhibited carnally hired played in whimpered dear gorilla koala depending and much yikes off far quetzal goodness and from for grimaced goodness unaccountably and meadowlark near unblushingly crucial scallop
-                                                tightly neurotic hungrily some and dear furiously this apart.
-                                            </p>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 
                             </div>               

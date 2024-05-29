@@ -59,6 +59,7 @@ if(isset($_SESSION['user'])) {
     $cdescription_doctor = $data['description_doctor'];
     
     // print_r($data);
+    // print_r($_SESSION['doctor']);
 } else {
 
 }

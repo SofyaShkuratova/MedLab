@@ -154,6 +154,164 @@ public function FindCategoryByDoctor($id_doctor) {
     $row = $result->FetchAll(PDO::FETCH_ASSOC);
     return $row;
 }
+
+public function updateLogin($login, $id_doctor) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_login = "UPDATE 
+                        ".$this->table_name." 
+                        SET login = :login WHERE id_doctor = :id_doctor";
+    
+    // Подготовка запроса к базе данных
+    $stmt = $this->conn->prepare($sql_update_login);
+    
+    // Связывание параметров с их значениями
+    $stmt->bindParam(':login', $login);
+    $stmt->bindParam(':id_doctor', $id_doctor);
+    
+    // Выполнение запроса
+    if ($stmt->execute()) {
+        return true; // Запрос успешно выполнен
+    } else {
+        return false; // Ошибка при выполнении запроса
+    }
+}
+public function updatePassword($password, $id_doctor) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_login = "UPDATE 
+                        ".$this->table_name." 
+                        SET password = :password 
+                        WHERE id_doctor = :id_doctor";
+    
+    // Подготовка запроса к базе данных
+    $stmt = $this->conn->prepare($sql_update_login);
+    
+    // Связывание параметров с их значениями
+    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':id_doctor', $id_doctor);
+    
+    // Выполнение запроса
+    if ($stmt->execute()) {
+        return true; // Запрос успешно выполнен
+    } else {
+        return false; // Ошибка при выполнении запроса
+    }
+}
+public function updateExperience($experience, $id_doctor) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_login = "UPDATE 
+                        ".$this->table_name." 
+                        SET experience = :experience 
+                        WHERE id_doctor = :id_doctor";
+    
+    // Подготовка запроса к базе данных
+    $stmt = $this->conn->prepare($sql_update_login);
+    
+    // Связывание параметров с их значениями
+    $stmt->bindParam(':experience', $experience);
+    $stmt->bindParam(':id_doctor', $id_doctor);
+    
+    // Выполнение запроса
+    if ($stmt->execute()) {
+        return true; // Запрос успешно выполнен
+    } else {
+        return false; // Ошибка при выполнении запроса
+    }
+}
+public function updateDescription($description_doctor, $id_doctor) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_login = "UPDATE 
+                        ".$this->table_name." 
+                        SET description_doctor = :description_doctor 
+                        WHERE id_doctor = :id_doctor";
+    
+    // Подготовка запроса к базе данных
+    $stmt = $this->conn->prepare($sql_update_login);
+    
+    // Связывание параметров с их значениями
+    $stmt->bindParam(':description_doctor', $description_doctor);
+    $stmt->bindParam(':id_doctor', $id_doctor);
+    
+    // Выполнение запроса
+    if ($stmt->execute()) {
+        return true; // Запрос успешно выполнен
+    } else {
+        return false; // Ошибка при выполнении запроса
+    }
+}
+public function updateWCategory($work_category, $id_doctor) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_login = "UPDATE 
+                        ".$this->table_name." 
+                        SET work_category = :work_category 
+                        WHERE id_doctor = :id_doctor";
+    
+    // Подготовка запроса к базе данных
+    $stmt = $this->conn->prepare($sql_update_login);
+    
+    // Связывание параметров с их значениями
+    $stmt->bindParam(':work_category', $work_category);
+    $stmt->bindParam(':id_doctor', $id_doctor);
+    
+    // Выполнение запроса
+    if ($stmt->execute()) {
+        return true; // Запрос успешно выполнен
+    } else {
+        return false; // Ошибка при выполнении запроса
+    }
+}
+public function updateType($type, $id_doctor) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_login = "UPDATE 
+                        ".$this->table_name." 
+                        SET type = :type 
+                        WHERE id_doctor = :id_doctor";
+    
+    // Подготовка запроса к базе данных
+    $stmt = $this->conn->prepare($sql_update_login);
+    
+    // Связывание параметров с их значениями
+    $stmt->bindParam(':type', $type);
+    $stmt->bindParam(':id_doctor', $id_doctor);
+    
+    // Выполнение запроса
+    if ($stmt->execute()) {
+        return true; // Запрос успешно выполнен
+    } else {
+        return false; // Ошибка при выполнении запроса
+    }
+}
+public function deleteRow($id_doctorservice) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_login = "DELETE FROM
+                        iddoctorservice
+                        WHERE id_doctorservice = :id_doctorservice";
+    
+    // Подготовка запроса к базе данных
+    $stmt = $this->conn->prepare($sql_update_login);
+    
+    // Связывание параметров с их значениями
+    $stmt->bindParam(':id_doctorservice', $id_doctorservice);
+    
+    // Выполнение запроса
+    if ($stmt->execute()) {
+        return true; // Запрос успешно выполнен
+    } else {
+        return false; // Ошибка при выполнении запроса
+    }
+}
+public function cancelRow($id_doctorservice) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_status = "
+            UPDATE 
+            iddoctorservice
+            SET status = 'cancel'
+            WHERE id_doctorservice = :id_doctorservice";
+
+    $stmt_update_status = $this->conn->prepare($sql_update_status);
+    $stmt_update_status->execute(['id_doctorservice' => $id_doctorservice]);
+    return true;
+}
+
  
 }
 

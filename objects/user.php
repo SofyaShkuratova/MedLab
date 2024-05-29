@@ -6,47 +6,28 @@ class Users  {
     public $conn ;
 
     private string $table_name = "users";
-    // private $id_user;
-    // private $name;
-    // private $last_name;
-    // private $second_name;
-    // private $phone;
-    // private $email;
-    // private $id_role;
-    // private $age;
-    // private $created_at;
-    // private $password;
-    // private $photo;
+
 
     public function __construct($db) {
         $this->conn = $db;
-    //     $this->name = $_POST["name"] ?? '';
-    //     $this->last_name = $_POST["last_name"] ?? '';
-    //     $this->second_name = $_POST["second_name"] ?? '';
-    //     $this->phone = $_POST["phone"] ?? ''; 
-    //     $this->email = $_POST["email"] ?? '';
-    //     $this->id_role = $_POST["id_role"] ?? 1;
-    //     $this->age = $_POST["age"] ?? '';
-    //     $this->create_at = date("Y-m-d H:i:s") ?? '';
-    //     $this->password = $_POST["password"] ?? '';
     }
 
     //Register New User
     public function register($name, $last_name, $second_name, $phone, $email, $id_role, $age, $created_at, $password) {
         $sql = "  
-                        INSERT INTO
-                        ".$this->table_name."   
-                        SET 
-                            name=:name,
-                            last_name=:last_name,
-                            second_name=:second_name,
-                            phone=:phone,
-                            email=:email,
-                            id_role=:id_role,
-                            age=:age,
-                            created_at=:created_at,
-                            password=:password
-                            ";
+                INSERT INTO
+                ".$this->table_name."   
+                SET 
+                    name=:name,
+                    last_name=:last_name,
+                    second_name=:second_name,
+                    phone=:phone,
+                    email=:email,
+                    id_role=:id_role,
+                    age=:age,
+                    created_at=:created_at,
+                    password=:password
+                    ";
         $result = $this->conn->prepare($sql);
         
         $result->bindParam(":name", $name);
@@ -100,7 +81,7 @@ class Users  {
     //Error Success Message Alert 
     public function showMessage($type, $message, $bg, $color) {
         echo '
-                <div class="' .$type.' error-div" >
+                <div class="' .$type.' error-div mt-10" >
                     <strong>' .$message. '</strong>
                     <button class="close-btn '.$bg.' '.$color.'" >&times;</button>
                 </div>';

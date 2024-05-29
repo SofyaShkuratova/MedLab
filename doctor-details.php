@@ -42,7 +42,7 @@ require_once "layout/layout_header.php";
                 <div class="breadcrumb">
                     <a href="home.php" rel="nofollow">Главная</a>
                     <span></span>
-                    <a href="doctors.php">Доктора</a>
+                    <a href="doctors.php">Врачи</a>
                     <span></span> <?= $list['doctor_lastname'].' '.$list['doctor_name'].' '.$list['doctor_secondname']; ?>
                 </div>
             </div>
@@ -108,19 +108,6 @@ require_once "layout/layout_header.php";
                                             <p> Категория: <a href="#"><?= $list['work_category']; ?></a> категория</p>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
-                                        <!-- <div class="short-desc mb-30">
-                                            <div class="product-price primary-color float-left">
-                                                <h3>Свободные талоны:</h3>
-                                                <div class="container-appoint">
-                                                    <div class="free-appointment">14:00</div>
-                                                    <div class="free-appointment">15:00</div>
-                                                    <div class="free-appointment">14:00</div>
-                                                    <div class="free-appointment"></div>
-                                                    <div class="free-appointment"></div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="bt-1 border-color-1 mt-30 mb-30"></div> -->
                                         <div class="detail-extralink">
                                             
                                                 <a  class="btn" href="checkin.php?id_doctor=<?= $index; ?>">Записаться на прием</a>
@@ -179,47 +166,14 @@ require_once "layout/layout_header.php";
                                                         
                                                     </div>
                                                 </div>
-                                                <!-- <div class="col-lg-4">
-                                                    <h4 class="mb-30">Customer reviews</h4>
-                                                    <div class="d-flex mb-30">
-                                                        <div class="product-rate d-inline-block mr-15">
-                                                            <div class="product-rating" style="width:90%">
-                                                            </div>
-                                                        </div>
-                                                        <h6>4.8 out of 5</h6>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <span>5 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <span>4 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <span>3 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <span>2 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
-                                                    </div>
-                                                    <div class="progress mb-30">
-                                                        <span>1 star</span>
-                                                        <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
-                                                    </div>
-                                                    <a href="#" class="font-xs text-muted">How are ratings calculated?</a>
-                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="Description">
                                         <div class="">
-                                            <p>Uninhibited carnally hired played in whimpered dear gorilla koala depending and much yikes off far quetzal goodness and from for grimaced goodness unaccountably and meadowlark near unblushingly crucial scallop
-                                                tightly neurotic hungrily some and dear furiously this apart.</p>
-                                            <p>Spluttered narrowly yikes left moth in yikes bowed this that grizzly much hello on spoon-fed that alas rethought much decently richly and wow against the frequent fluidly at formidable acceptably flapped
-                                                besides and much circa far over the bucolically hey precarious goldfinch mastodon goodness gnashed a jellyfish and one however because.
-                                            </p>
+                                        
+                                            <p><?= $list['description_doctor']; ?></p>
+                                            
                                         </div>
                                     </div>
                                     

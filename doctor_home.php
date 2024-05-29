@@ -32,24 +32,24 @@ require_once "layout/layout_header.php";
                                     <li class="nav-item">
                                         <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab"
                                             href="#dashboard" role="tab" aria-controls="dashboard"
-                                            aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Личные
+                                            aria-selected="false"><i class="fi-rs-user mr-10"></i>Личные
                                             данные</a>
+                                    </li>
+                                    <li class="nav-item">
+                                            <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Изменить данные</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders"
                                             role="tab" aria-controls="orders" aria-selected="false"><i
-                                                class="fi-rs-shopping-bag mr-10"></i>Расписание</a>
+                                                class="fi-rs-pharmacy mr-10"></i>Расписание</a>
                                     </li>
-                                    <!-- <li class="nav-item">
-                                            <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
-                                        </li> -->
                                     <!-- <li class="nav-item">
                                             <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>My Address</a>
                                         </li> -->
                                     <li class="nav-item">
                                         <a class="nav-link " id="account-detail-tab" data-bs-toggle="tab"
                                             href="#account-detail" role="tab" aria-controls="account-detail"
-                                            aria-selected="true"><i class="fi-rs-user mr-10"></i>Добавить запись</a>
+                                            aria-selected="true"><i class="fi fi-rs-archive mr-10"></i>Добавить запись</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="logout.php"><i class="fi-rs-sign-out mr-10"></i>Выйти
@@ -74,8 +74,15 @@ require_once "layout/layout_header.php";
                                             <p>Логин: <?php print_r($clogin) ?> </p>
                                             <p>Пароль: <?php print_r($cemail) ?> </p>
                                             <p>Тип: <?php print_r($ctype) ?> врач</p>
-                                            <p>Опыт: <?php print_r($cwork_category) ?> категория</p>
+                                            <p>Квалификационная категория: <?php print_r($cwork_category) ?> категория</p>
                                             <p>Стаж: <?php print_r($cexperience) ?> лет</p>
+                                            <p>Описание: <?php 
+                                            if(isset($cdescription_doctor)) {
+                                              print_r($cdescription_doctor) ; 
+                                            } else {
+                                                print_r("Пока что пусто...");
+                                            }
+                                            ?></p>
                                         </div>
 
                                     </div>
@@ -108,68 +115,146 @@ require_once "layout/layout_header.php";
                                 </div>
                                 <div class="tab-pane fade " id="track-orders" role="tabpanel"
                                     aria-labelledby="track-orders-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mb-0">Orders tracking</h5>
-                                        </div>
-                                        <div class="card-body contact-from-area">
-                                            <p>To track your order please enter your OrderID in the box below and press
-                                                "Track" button. This was given to you on your receipt and in the
-                                                confirmation email you should have received.</p>
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <form class="contact-form-style mt-30 mb-50" action="#"
-                                                        method="post">
-                                                        <div class="input-style mb-20">
-                                                            <label>Order ID</label>
-                                                            <input name="order-id"
-                                                                placeholder="Found in your order confirmation email"
-                                                                type="text" class="square">
-                                                        </div>
-                                                        <div class="input-style mb-20">
-                                                            <label>Billing email</label>
-                                                            <input name="billing-email"
-                                                                placeholder="Email you used during checkout"
-                                                                type="email" class="square">
-                                                        </div>
-                                                        <button class="submit submit-auto-width"
-                                                            type="submit">Track</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="card mb-3 mb-lg-0">
                                                 <div class="card-header">
-                                                    <h5 class="mb-0">Billing Address</h5>
+                                                    <h5 class="mb-0">Изменить логин</h5>
                                                 </div>
-                                                <div class="card-body">
-                                                    <address>000 Interstate<br> 00 Business Spur,<br> Sault Ste.
-                                                        <br>Marie, MI 00000</address>
-                                                    <p>New York</p>
-                                                    <a href="#" class="btn-small">Edit</a>
-                                                </div>
+                                                <form method="post" id="change-login">
+                                                    <div class="card-body">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Введите новый логин</label>
+                                                            <input class="form-control square" name="login" id="login">
+                                                            <div id="loginError"></div>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit"
+                                                            name="submit" value="Submit" id="btn-change-login">Изменить логин</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <div class="card">
+                                            <div class="card mb-3 mb-lg-0">
                                                 <div class="card-header">
-                                                    <h5 class="mb-0">Shipping Address</h5>
+                                                    <h5 class="mb-0">Изменить пароль</h5>
                                                 </div>
-                                                <div class="card-body">
-                                                    <address>4299 Express Lane<br>
-                                                        Sarasota, <br>FL 00000 USA <br>Phone: 1.000.000.0000</address>
-                                                    <p>Sarasota</p>
-                                                    <a href="#" class="btn-small">Edit</a>
+                                                <form method="post" id="change-pass">
+                                                    <div class="card-body">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Введите новый пароль</label>
+                                                            <input class="form-control square" name="pass" id="pass">
+                                                            <div id="passError"></div>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit"
+                                                            name="submit" value="Submit" id="btn-change-pass">Изменить пароль</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-20">
+                                        <div class="col-lg-6">
+                                            <div class="card mb-3 mb-lg-0">
+                                                <div class="card-header">
+                                                    <h5 class="mb-0">Стаж работы</h5>
                                                 </div>
+                                                <form method="post" id="change-exper">
+                                                    <div class="card-body">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Введите стаж работы</label>
+                                                            <input class="form-control square" name="exper" id="exper" type="number" value=<?php echo $cexperience ?>>
+                                                            <div id="experError"></div>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit"
+                                                            name="submit" value="Submit" id="btn-change-exper">Изменить опыт работы</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="card mb-3 mb-lg-0">
+                                                <div class="card-header">
+                                                    <h5 class="mb-0">Описание</h5>
+                                                </div>
+                                                <form method="post" id="change-desc">
+                                                    <div class="card-body">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Описание врача</label>
+                                                            <input class="form-control square" name="desc" id="desc" type="text" >
+                                                            <div id="descError"></div>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit"
+                                                            name="submit" value="Submit" id="btn-change-desc">Добавить</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-20">
+                                        <div class="col-lg-6">
+                                            <div class="card mb-3 mb-lg-0">
+                                                <div class="card-header">
+                                                    <h5 class="mb-0">Добавить квалификацию</h5>
+                                                </div>
+                                                <form method="post" id="change-wcateg">
+                                                    <div class="card-body">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Выберите квалификацию работы</label>
+                                                            <div class="custom_select">
+                                                                <select name="wcateg" id="wcateg" class="form-control">
+                                                                    <option value="Первая">Первая</option>
+                                                                    <option value="Вторая">Вторая</option>
+                                                                    <option value="Высшая">Высшая</option>
+                                                                </select>
+                                                            </div>
+                                                            <div id="wcategError"></div>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit"
+                                                            name="submit" value="Submit" id="btn-change-wcateg">Изменить квалификацию</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="card mb-3 mb-lg-0">
+                                                <div class="card-header">
+                                                    <h5 class="mb-0">Добавить тип врача</h5>
+                                                </div>
+                                                <form method="post" id="change-type">
+                                                    <div class="card-body">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Выберите тип врача</label>
+                                                            <div class="custom_select">
+                                                                <select name="type" id="type" class="form-control">
+                                                                    <option value="Взрослый">Взрослый</option>
+                                                                    <option value="Детский">Детский</option>
+                                                                </select>
+                                                            </div>
+                                                            
+                                                            <div id="typeError"></div>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit"
+                                                            name="submit" value="Submit" id="btn-change-type">Изменить тип</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
                                     <div class="card mb-20">
                                         <div class="card-header">
@@ -216,21 +301,7 @@ require_once "layout/layout_header.php";
                                                             <th>Удалить</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="FullTimetable">
-                                                        <!-- <tr>
-                                                            <th>23</th>
-                                                            <th>12</th>
-                                                            <th>Время</th>
-                                                            <th>Статус</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>23</th>
-                                                            <th>12</th>
-                                                            <th>Время</th>
-                                                            <th>Статус</th>
-                                                        </tr> -->
-                                                        
-                                                    </tbody>
+                                                    <tbody id="FullTimetable"></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -379,9 +450,194 @@ require_once "layout/layout_footer.php";
         maxTime: "22:00"
     });
 
-    // document.querySelector("#my-datepicker").addEventListener("change", () => {
-    //     console.log(document.querySelectorAll(".flatpickr-day.selected"));
-    // })
+    let clogin = "<?php echo $clogin ?>";
+    console.log(clogin);
+
+    $(document).on("click", "#btn-change-login", function(e) {
+        if($("#change-login")[0].checkValidity()) {
+            e.preventDefault();
+            let login = $("#login").val();
+
+            $.ajax({
+                  url:'ajax/doctor-data.php',
+                  method: 'post',
+                  data: {action: "update_login", login: login},
+                  success: function(response) {
+                    $("#loginError").html(response);
+                    console.log(response);
+                  },
+                  error: function(xhr, status, error){
+                    console.log("Status: " + status);
+                    console.log("Error: " + error);
+                  }
+            });
+        }
+    });
+    $(document).on("click", "#btn-change-pass", function(e) {
+        if($("#change-pass")[0].checkValidity()) {
+            e.preventDefault();
+
+            function validateForm() {
+                let isValid = true;
+
+                let passwordRegex = /^(?=.*\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я])[0-9a-zA-Zа-яА-Я]{8,}$/ ;
+                if (!passwordRegex.test($("#pass").val()) ) {
+                    $("#passError").text('* Пароль должен содержать минимум 8 символов, 1 маленькую букву, 1 большую букву и цифры');
+                    $("#passError").addClass("text-danger");
+                    $("#pass").addClass("border-danger bg-danger");
+                    isValid = false;
+                } else {
+                    $("#passError").text('');
+                    $("#passError").removeClass("text-danger");
+                    $("#pass").removeClass("border-danger bg-danger");
+                }
+                return isValid ;
+            }
+            
+            if (validateForm()) {
+                $("#passError").text('');
+                let pass = $("#pass").val();
+
+                $.ajax({
+                    url:'ajax/doctor-data.php',
+                    method: 'post',
+                    data: {action: "update_password", pass: pass},
+                    success: function(response) {
+                    $("#passError").html(response);
+                    console.log(response);
+                    },
+                    error: function(xhr, status, error){
+                    console.log("Status: " + status);
+                    console.log("Error: " + error);
+                    }
+                });
+            }
+        }
+    });  
+    $(document).on("click", "#btn-change-exper", function(e) {
+        if($("#change-exper")[0].checkValidity()) {
+            e.preventDefault();
+            
+            let exper = $("#exper").val();
+
+            $.ajax({
+                url:'ajax/doctor-data.php',
+                method: 'post',
+                data: {action: "update_exper", experience: exper},
+                success: function(response) {
+                $("#experError").html(response);
+                console.log(response);
+                },
+                error: function(xhr, status, error){
+                console.log("Status: " + status);
+                console.log("Error: " + error);
+                }
+            });
+        }
+    });  
+    $(document).on("click", "#btn-change-desc", function(e) {
+        if($("#change-desc")[0].checkValidity()) {
+            e.preventDefault();
+            
+            let desc = $("#desc").val();
+
+            $.ajax({
+                url:'ajax/doctor-data.php',
+                method: 'post',
+                data: {action: "update_desc", desc: desc},
+                success: function(response) {
+                $("#descError").html(response);
+                console.log(response);
+                },
+                error: function(xhr, status, error){
+                console.log("Status: " + status);
+                console.log("Error: " + error);
+                }
+            });
+        }
+    });
+    $(document).on("click", "#btn-change-wcateg", function(e) {
+        if($("#change-wcateg")[0].checkValidity()) {
+            e.preventDefault();
+            
+            let wcateg = $("#wcateg").val();
+            // console.log(wcateg);
+            $.ajax({
+                url:'ajax/doctor-data.php',
+                method: 'post',
+                data: {action: "update_wcateg", wcateg: wcateg},
+                success: function(response) {
+                $("#wcategError").html(response);
+                console.log(response);
+                },
+                error: function(xhr, status, error){
+                console.log("Status: " + status);
+                console.log("Error: " + error);
+                }
+            });
+        }
+    });
+    $(document).on("click", "#btn-change-type", function(e) {
+        if($("#change-type")[0].checkValidity()) {
+            e.preventDefault();
+            
+            let type = $("#type").val();
+            // console.log(wcateg);
+            $.ajax({
+                url:'ajax/doctor-data.php',
+                method: 'post',
+                data: {action: "update_type", type: type},
+                success: function(response) {
+                $("#typeError").html(response);
+                console.log(response);
+                },
+                error: function(xhr, status, error){
+                console.log("Status: " + status);
+                console.log("Error: " + error);
+                }
+            });
+        }
+    });
+
+    $(document).on("click", ".delete-row", function(e) {
+        id_row = $(this).attr("id").split("-")[1];
+        console.log("ID delete row:" + id_row);
+
+        $.ajax({
+                url:'ajax/doctor-data.php',
+                method: 'post',
+                data: {action: "delete_row", id_row: id_row},
+                success: function(response) {
+                    // $("#typeError").html(response);
+                    console.log(response);
+                    displayTimeTable();
+                },
+                error: function(xhr, status, error){
+                    console.log("Status: " + status);
+                    console.log("Error: " + error);
+                }
+            });
+    });
+    $(document).on("click", ".cancel-row", function(e) {
+        id_row = $(this).attr("id").split("-")[1];
+        console.log("ID cancel row:" + id_row);
+
+        $.ajax({
+                url:'ajax/doctor-data.php',
+                method: 'post',
+                data: {action: "cancel_row", id_row: id_row},
+                success: function(response) {
+                    // $("#typeError").html(response);
+                    console.log(response);
+                    displayTimeTable();
+                    displayTable();
+                },
+                error: function(xhr, status, error){
+                    console.log("Status: " + status);
+                    console.log("Error: " + error);
+                }
+            });
+    });
 
 
 </script>

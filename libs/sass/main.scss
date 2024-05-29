@@ -628,7 +628,7 @@ thead {
   body {
     color: #4f5d77;
     font-family: "Inter", sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 24px;
     font-style: normal;
     font-weight: 200;
@@ -5312,6 +5312,14 @@ thead {
     border-radius: 4px;
     border: 1px solid #eef0ee;
   }
+
+  .cart-dropdown-wrap>ul>li>a {
+    font-size: 14px;
+
+    &:hover {
+      color: #3d6de8;
+    }
+  }
   
   .cart-dropdown-wrap.cart-dropdown-hm2 {
     right: -63px;
@@ -5322,8 +5330,6 @@ thead {
   }
   
   .cart-dropdown-wrap ul li .shopping-cart-img {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 80px;
     flex: 0 0 80px;
     margin-right: 20px;
   }

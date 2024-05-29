@@ -34,9 +34,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'createcateg') {
         echo $users->showMessage('text-warning','Эта категория уже существует!', 'bg-warning','text-warning');
     } else {
         if($categories->createCategory($title_category, $description_category, $combined_photo)) {
-            echo $users->showMessage('text-sucсess','Категория создана!', 'bg-sucess','text-sucess');
+            echo $users->showMessage('text-sucсess','Категория создана!', 'text-success','bg-success');
         } else {
-            echo $users->showMessage('text-danger','Категория не создана!', 'bg-danger','text-danger');
+            echo $users->showMessage('text-danger','Категория не создана!', 'text-danger','bg-danger');
         }
     }
 }
@@ -289,20 +289,21 @@ if(isset($_POST['action']) && $_POST['action'] == 'insert_reserve') {
      }
  }
 
+ //Создание услуги в админке
 if(isset($_POST['action']) && $_POST['action'] == 'createservice') {
     // print_r($_POST);
-    $title_service = $users->test_input($_POST['title_service']);
-    $description_service = $users->test_input($_POST['desc_service']);
-    $price = $users->test_input($_POST['price']);
-    $id_category = $users->test_input($_POST['id_category']);
+    $title_service = $_POST['title'];
+    $description_service = $_POST['description'];
+    $price = $_POST['price'];
+    $id_category = $_POST['id_category'];
 
     if($services->service_exist($title_service)) {
         echo $users->showMessage('text-warning','Эта услуга уже существует!', 'bg-warning','text-warning');
     } else {
         if($services->createService($title_service, $description_service, $price, $id_category)) {
-            echo $users->showMessage('text-sucсess','Услуга создана!', 'bg-sucess','text-sucess');
+            echo $users->showMessage('text-success','Услуга создана!', 'text-success','bg-success');
         } else {
-            echo $users->showMessage('text-danger','Услуга не создана!', 'bg-danger','text-danger');
+            echo $users->showMessage('text-danger','Услуга не создана!', 'text-danger','bg-danger');
         }
     }
 }
@@ -381,14 +382,56 @@ if(isset($_POST['action']) && $_POST['action'] == 'createdoctor') {
     $password = $users->test_input($_POST['password']);
 
     if($doctors->doctor_exist($login)) {
-        echo $users->showMessage('text-warning','Этот логин уже существует!', 'bg-warning','text-warning');
+        echo $users->showMessage('text-warning','Этот логин уже существует!', 'text-warning','bg-warning');
     } else {
         if($doctors->createDoctor($doctor_name, $doctor_lastname, $doctor_secondname, $id_category, $login, $password)) {
-            echo $users->showMessage('text-sucсess','Врач создан!', 'bg-sucess','text-sucess');
+            echo $users->showMessage('text-success','Врач создан!', 'text-success','bg-success');
         } else {
-            echo $users->showMessage('text-danger','Услуга не создана!', 'bg-danger','text-danger');
+            echo $users->showMessage('text-danger','Услуга не создана!', 'text-danger','bg-danger');
         }
     }
+}
+
+
+///Вывод категорий для админки!!!!
+if(isset($_POST['action']) && $_POST['action'] == 'display_category') {
+    $output = '';
+
+    $list = $categories->get_category();
+
+
+    if($list) {
+        $output .= "<select class='form-control select-active' id='id_category'>
+        <option value='0'>Категория...</option>";
+        foreach ($list as $row) {
+            $output .= "<option value='".$row['id_category']."'>".$row['title_category']."</option>";
+        }
+        $output .= "</select>";
+        print_r($output);
+    } else {
+        echo '<h3>Еще нет ни одной категории!</h3>';
+    }
+    //print_r($list);
+}
+
+if(isset($_POST['action']) && $_POST['action'] == 'display_category1') {
+    $output = '';
+
+    $list = $categories->get_category();
+
+
+    if($list) {
+        $output .= "<select class='form-control select-active' id='id_category1'>
+        <option value='0'>Категория...</option>";
+        foreach ($list as $row) {
+            $output .= "<option value='".$row['id_category']."'>".$row['title_category']."</option>";
+        }
+        $output .= "</select>";
+        print_r($output);
+    } else {
+        echo '<h3>Еще нет ни одной категории!</h3>';
+    }
+    //print_r($list);
 }
 
 
