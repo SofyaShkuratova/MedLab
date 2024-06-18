@@ -21,7 +21,7 @@ class TimeTable {
         ;   
             ";
         $result = $this->conn->prepare($sql);
-        $result->execute(['id_user'=>$id_user, 'today' => $today, 'status' => 'ожидание']);
+        $result->execute(['id_user'=>$id_user, 'today' => $today, 'status' => 'confirmed']);
 
         $row = $result->fetchAll(PDO::FETCH_ASSOC);
         return $row;
@@ -52,7 +52,7 @@ class TimeTable {
         AND status = :status
         ";
         $resultCount = $this->conn->prepare($sqlCount);
-        $resultCount->execute(['id_user' => $id_user, 'today' => $today, 'status' => 'ожидание']);
+        $resultCount->execute(['id_user' => $id_user, 'today' => $today, 'status' => 'confirmed']);
 
         $rowCount = $resultCount->fetchColumn();
         return ['count' => $rowCount];

@@ -78,6 +78,27 @@ class Service {
         return $row;
     }
 
+
+    public function deleteRow($id_service) {
+        // Подготовка SQL-запроса с использованием параметров
+        $sql = "DELETE FROM
+                ".$this->table_name."  
+                WHERE id_service = :id_service";
+        
+        // Подготовка запроса к базе данных
+        $stmt = $this->conn->prepare($sql);
+        
+        // Связывание параметров с их значениями
+        $stmt->bindParam(':id_service', $id_service);
+        
+        // Выполнение запроса
+        if ($stmt->execute()) {
+            return true; // Запрос успешно выполнен
+        } else {
+            return false; // Ошибка при выполнении запроса
+        }
+    }
+
 }
 
 ?>

@@ -47,7 +47,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'login-doctor') {
     
     if($loggedInUser != null) {
         // if(password_verify($password, $loggedInUser['password'])) { 
-        if($password == $loggedInUser['password']) { 
+        if(password_verify($password, $loggedInUser['password'])) { 
             // print_r($loggedInUser);
             if (!empty($_POST['rem'])) {
                 setcookie("login", $login, time() + (30*24*60*60),"/");

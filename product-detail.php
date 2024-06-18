@@ -97,7 +97,7 @@ require_once "layout/layout_header.php";
                                             <tr>
                                                 <th><p>Услуга</p></th>
                                                 <th><p>Описание</p></th>
-                                                <th><p>Цена</p></th>
+                                                <th><p>Цена, руб</p></th>
                                             </tr>
                                             
                                             <?php

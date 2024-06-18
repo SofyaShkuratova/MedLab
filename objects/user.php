@@ -71,7 +71,7 @@ class Users  {
     }
 
     //Check Input
-    public function test_input ($data) {
+    public function test_input($data) {
         $data = trim($data);
         $data = stripcslashes($data);
         $data = htmlspecialchars($data);
@@ -148,6 +148,191 @@ class Users  {
 
         $row = $result->fetch(PDO::FETCH_ASSOC);
         return $row;
+    }
+
+
+    //Изменение данных пользователя
+    public function updatePhone($phone, $id_user) {
+        // Подготовка SQL-запроса с использованием параметров
+        $sql_update_login = "UPDATE 
+                            ".$this->table_name." 
+                            SET phone = :phone WHERE id_user = :id_user";
+        
+        // Подготовка запроса к базе данных
+        $stmt = $this->conn->prepare($sql_update_login);
+        
+        // Связывание параметров с их значениями
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':id_user', $id_user);
+        
+        // Выполнение запроса
+        if ($stmt->execute()) {
+            return true; // Запрос успешно выполнен
+        } else {
+            return false; // Ошибка при выполнении запроса
+        }
+    }
+
+    public function updatePassword($password, $id_user) {
+        // Подготовка SQL-запроса с использованием параметров
+        $sql_update_login = "UPDATE 
+                            ".$this->table_name." 
+                            SET password = :password 
+                            WHERE id_user = :id_user";
+        
+        // Подготовка запроса к базе данных
+        $stmt = $this->conn->prepare($sql_update_login);
+        
+        // Связывание параметров с их значениями
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':id_user', $id_user);
+        
+        // Выполнение запроса
+        if ($stmt->execute()) {
+            return true; // Запрос успешно выполнен
+        } else {
+            return false; // Ошибка при выполнении запроса
+        }
+    }
+
+    public function updateAge($age, $id_user) {
+        // Подготовка SQL-запроса с использованием параметров
+        $sql_update_login = "UPDATE 
+                            ".$this->table_name." 
+                            SET age = :age 
+                            WHERE id_user = :id_user";
+        
+        // Подготовка запроса к базе данных
+        $stmt = $this->conn->prepare($sql_update_login);
+        
+        // Связывание параметров с их значениями
+        $stmt->bindParam(':age', $age);
+        $stmt->bindParam(':id_user', $id_user);
+        
+        // Выполнение запроса
+        if ($stmt->execute()) {
+            return true; // Запрос успешно выполнен
+        } else {
+            return false; // Ошибка при выполнении запроса
+        }
+    }
+
+    public function updateSname($second_name, $id_user) {
+        // Подготовка SQL-запроса с использованием параметров
+        $sql_update_login = "UPDATE 
+                            ".$this->table_name." 
+                            SET second_name = :second_name 
+                            WHERE id_user = :id_user";
+        
+        // Подготовка запроса к базе данных
+        $stmt = $this->conn->prepare($sql_update_login);
+        
+        // Связывание параметров с их значениями
+        $stmt->bindParam(':second_name', $second_name);
+        $stmt->bindParam(':id_user', $id_user);
+        
+        // Выполнение запроса
+        if ($stmt->execute()) {
+            return true; // Запрос успешно выполнен
+        } else {
+            return false; // Ошибка при выполнении запроса
+        }
+    }
+    public function updateLname($last_name, $id_user) {
+        // Подготовка SQL-запроса с использованием параметров
+        $sql_update_login = "UPDATE 
+                            ".$this->table_name." 
+                            SET last_name = :last_name 
+                            WHERE id_user = :id_user";
+        
+        // Подготовка запроса к базе данных
+        $stmt = $this->conn->prepare($sql_update_login);
+        
+        // Связывание параметров с их значениями
+        $stmt->bindParam(':last_name', $last_name);
+        $stmt->bindParam(':id_user', $id_user);
+        
+        // Выполнение запроса
+        if ($stmt->execute()) {
+            return true; // Запрос успешно выполнен
+        } else {
+            return false; // Ошибка при выполнении запроса
+        }
+    }
+    public function updateEmail($email, $id_user) {
+        // Подготовка SQL-запроса с использованием параметров
+        $sql_update_login = "UPDATE 
+                            ".$this->table_name." 
+                            SET email = :email 
+                            WHERE id_user = :id_user";
+        
+        // Подготовка запроса к базе данных
+        $stmt = $this->conn->prepare($sql_update_login);
+        
+        // Связывание параметров с их значениями
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':id_user', $id_user);
+        
+        // Выполнение запроса
+        if ($stmt->execute()) {
+            return true; // Запрос успешно выполнен
+        } else {
+            return false; // Ошибка при выполнении запроса
+        }
+    }
+
+    public function cancelRowUser($id_reserve) {
+
+        $sql = "
+                SELECT id_doctor, id_category, time_reserve, date_reserve FROM
+                reservation
+                WHERE id_reserve = :id_reserve
+                "; 
+        $result = $this->conn->prepare($sql);
+        $result->execute(['id_reserve'=>$id_reserve]);
+    
+        if($result) {
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+    
+            $id_doctor = $row["id_doctor"];
+            // $id_category = $row["id_category"];
+            $time_work = $row["time_reserve"];
+            $date_work = $row["date_reserve"];
+            $status = 'cancel';
+    
+            // Обновление данных в таблицу reservation
+            $sql_insert = "UPDATE reservation
+                        SET status = :status
+                        WHERE id_reserve = :id_reserve
+                        "; 
+            
+            $stmt_insert = $this->conn->prepare($sql_insert);
+            $stmt_insert->execute(['status'=>$status, 'id_reserve'=>$id_reserve]);
+            if ($stmt_insert) {
+                // Update doctorservice
+                $sql_update_status = "UPDATE iddoctorservice
+                        SET status = 'cancel'
+                        WHERE id_doctor = :id_doctor AND
+                            date_work = :date_work AND
+                            time_work = :time_work    ";
+    
+                $stmt_update_status = $this->conn->prepare($sql_update_status);
+                $stmt_update_status->execute(['id_doctor' => $id_doctor,
+                                                'date_work' => $date_work,
+                                                'time_work' => $time_work]);
+    
+                if($stmt_update_status) {
+                    return $stmt_insert;
+                } else {
+                    echo "Ошибка: " . $stmt_update_status->error;
+                }
+                
+            } else {
+                echo "Ошибка: " . $stmt_insert->error;
+            }
+        } else {
+            echo "Запись с id_doctor $id_reserve не найдена в таблице reservations.";
+        }
     }
 }
 ?>

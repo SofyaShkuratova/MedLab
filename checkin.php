@@ -95,7 +95,7 @@ require_once "layout/layout_header.php";
                         </div>
                         <div class="col-lg-1"></div>
                         <div class="col-lg-6">
-                            <img style="border-radius:10px" src="libs/imgs/login.jpg">
+                            <img style="border-radius:10px" src="libs/imgs/login.jpg" alt="Три нарисованных врача в халатах">
                         </div>
                     </div>
                 </div>
@@ -309,7 +309,7 @@ require_once "layout/layout_footer.php";
             }
             
 
-            // insertData(id_user, id_categorydoctor);
+            insertData(id_user, id_categorydoctor);
         }
     });
 

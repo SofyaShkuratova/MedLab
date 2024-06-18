@@ -72,8 +72,10 @@ require_once "layout/layout_header.php";
                                             <p>Фамилия: <?php print_r($clast_name) ?> </p>
                                             <p>Отчество: <?php print_r($csecond_name) ?> </p>
                                             <p>Логин: <?php print_r($clogin) ?> </p>
-                                            <p>Пароль: <?php print_r($cemail) ?> </p>
-                                            <p>Тип: <?php print_r($ctype) ?> врач</p>
+                                            
+                                            <p>Тип: <?php 
+                                            print_r($ctype) 
+                                            ?> врач</p>
                                             <p>Квалификационная категория: <?php print_r($cwork_category) ?> категория</p>
                                             <p>Стаж: <?php print_r($cexperience) ?> лет</p>
                                             <p>Описание: <?php 
@@ -274,13 +276,14 @@ require_once "layout/layout_header.php";
                                                         <input type="text" id="s-timepicker" name="ToTime class="mb-10">
                                                         <div id="showAllTime"></div>
                                                         <div id="showSuccess"></div>
+                                                        <div class="col-md-12 mt-20">
+                                                            <button type="submit" class="btn btn-fill-out submit"
+                                                                name="submit" value="Submit" id="add-timetable-btn">Добавить расписание</button>
+                                                        </div>
                                                     </div>
                                                 </div > 
                                                     
-                                                <div class="col-md-12 mt-20">
-                                                    <button type="submit" class="btn btn-fill-out submit"
-                                                        name="submit" value="Submit" id="add-timetable-btn">Добавить расписание</button>
-                                                </div>
+                                                
                                                 
                                             </form>
                                         </div>
@@ -618,6 +621,7 @@ require_once "layout/layout_footer.php";
                 }
             });
     });
+    
     $(document).on("click", ".cancel-row", function(e) {
         id_row = $(this).attr("id").split("-")[1];
         console.log("ID cancel row:" + id_row);

@@ -9670,4 +9670,12 @@ div.row > div > video {
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
   color: #c59b08;
+}
+
+div.user.justify-content-between.d-flex {
+  width: 100%;
+}
+
+div.single-comment > div.user > div#full-comment {
+  width: 100%;
 }/*# sourceMappingURL=main.css.map */

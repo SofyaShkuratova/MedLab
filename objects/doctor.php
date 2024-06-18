@@ -44,19 +44,21 @@ class Doctor {
     //Display Cards in Doctors Page
     function displayCard($limitNumber, $value) {
         $sql = "
-            SELECT *
+            SELECT doctors.*, categories.*, AVG(review.review_star) as average_rating
             FROM doctors 
             JOIN categories ON doctors.id_category = categories.id_category
-            WHERE doctors.id_doctor 
-            ORDER BY doctor_lastname $value
+            LEFT JOIN review ON doctors.id_doctor = review.id_doctor
+            GROUP BY doctors.id_doctor
+            ORDER BY average_rating $value
             LIMIT $limitNumber
         ";
         $result = $this->conn->prepare($sql);
         $result->execute();
-
+    
         $row = $result->FetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    
 
     //Display Sort Category Cards in Doctors Page
     function displayCards($limitNumber) {
@@ -300,16 +302,78 @@ public function deleteRow($id_doctorservice) {
     }
 }
 public function cancelRow($id_doctorservice) {
-    // Подготовка SQL-запроса с использованием параметров
-    $sql_update_status = "
-            UPDATE 
-            iddoctorservice
-            SET status = 'cancel'
-            WHERE id_doctorservice = :id_doctorservice";
 
-    $stmt_update_status = $this->conn->prepare($sql_update_status);
-    $stmt_update_status->execute(['id_doctorservice' => $id_doctorservice]);
-    return true;
+    $sql = "
+            SELECT id_doctor, id_category, time_work, date_work FROM
+            iddoctorservice
+            WHERE id_doctorservice = :id_doctorservice
+            "; 
+    $result = $this->conn->prepare($sql);
+    $result->execute(['id_doctorservice'=>$id_doctorservice]);
+
+    if($result) {
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+        $id_doctor = $row["id_doctor"];
+        // $id_category = $row["id_category"];
+        $time_reserve = $row["time_work"];
+        $date_reserve = $row["date_work"];
+        // $status = 'cancel';
+
+        // Обновление данных в таблицу iddoctorservice
+        $sql_insert = "UPDATE iddoctorservice
+                    SET status = 'cancel'
+                    WHERE id_doctorservice = :id_doctorservice
+                    "; 
+        
+        $stmt_insert = $this->conn->prepare($sql_insert);
+        $stmt_insert->execute(['id_doctorservice'=>$id_doctorservice]);
+        if ($stmt_insert) {
+            // Update doctorservice
+            $sql_update_status = "UPDATE reservation
+                    SET status = 'cancel'
+                    WHERE id_doctor = :id_doctor AND
+                        date_reserve = :date_reserve AND
+                        time_reserve = :time_reserve    ";
+
+            $stmt_update_status = $this->conn->prepare($sql_update_status);
+            $stmt_update_status->execute(['id_doctor' => $id_doctor,
+                                            'date_reserve' => $date_reserve,
+                                            'time_reserve' => $time_reserve]);
+
+            if($stmt_update_status) {
+                return $stmt_insert;
+            } else {
+                echo "Ошибка: " . $stmt_update_status->error;
+            }
+            
+        } else {
+            echo "Ошибка: " . $stmt_insert->error;
+        }
+    } else {
+        echo "Запись с id_doctor $id_doctorservice не найдена в таблице reservations.";
+    }
+}
+
+public function deleteRowDoctor($id_doctor) {
+    // Подготовка SQL-запроса с использованием параметров
+    $sql_update_login = "
+        DELETE FROM
+        doctors
+        WHERE id_doctor = :id_doctor";
+    
+    // Подготовка запроса к базе данных
+    $stmt = $this->conn->prepare($sql_update_login);
+    
+    // Связывание параметров с их значениями
+    $stmt->bindParam(':id_doctor', $id_doctor);
+    
+    // Выполнение запроса
+    if ($stmt->execute()) {
+        return true; // Запрос успешно выполнен
+    } else {
+        return false; // Ошибка при выполнении запроса
+    }
 }
 
  

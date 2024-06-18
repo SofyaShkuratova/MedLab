@@ -73,19 +73,15 @@ if(isset($_POST['action']) && $_POST['action'] == 'search_data') {
 
 //Display Num Cards
 if(isset($_POST['action']) && $_POST['action'] == 'display_cards') {
-    // print_r($_POST);
 
     $value = $_POST['value'];
     $number = $_POST['number_card'];
     $list = $doctors->displayCard($number, $value);
-    // print_r($list);
 
     $output = '';
     if($list) {
         foreach($list as $row) {
-            $output .= 
-            '
-            <div class="col-lg-4 col-md-4 col-6 col-sm-6">
+            $output .= '<div class="col-lg-4 col-md-4 col-6 col-sm-6">
                 <div class="product-cart-wrap mb-30">
                     <div class="product-img-action-wrap">
                         <div class="product-img product-img-zoom">
@@ -102,28 +98,18 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_cards') {
 
                         if ($reviewStar) {
                             $rate = ($reviewStar['AVG(review_star)']*20);
-                            $num = ($reviewStar['AVG(review_star)']*1);
+                            $num = round(($reviewStar['AVG(review_star)']*1), 1);
                             // print_r($rate);
-                            $output .= '
-                            <div class="product-rate-cover text-end">
+                            $output .= '<div class="product-rate-cover text-end">
                                 <div class="product-rate d-inline-block">
                                     <div class="product-rating" style="width:'.$rate.'%"></div>  
                                 </div>
                                 <span class="font-small ml-5 text-muted">
                                     '.$num.' звезд
                                 </span>
-                            </div>
-                            ';  
-                            // echo($output);
+                            </div>';  
                         }
-                        // <div class="rating-result" title="90%">
-                        //     <span>
-                        //         <span>5,5</span>
-                        //     </span>
-                        // </div>
-            $output .= 
-            '
-                        <div>
+            $output .= '<div>
                             <span>Специальность: '.$row['title_category'].'</span>
                         </div>
                         <div>
@@ -131,58 +117,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_cards') {
                         </div>
                     </div>
                 </div>
-            </div>
-            ';
+            </div>';
         }
         print_r($output);
     }
 }
 
-// if(isset($_POST['action']) && $_POST['action'] == 'sort_cards') {
-//     $value = $_POST['value'];
-//     $list = $doctors->sortCards($value);
-
-//     $output = '';
-//     if($list) {
-//         foreach($list as $row) {
-//             $output .= 
-//             '
-//             <div class="col-lg-4 col-md-4 col-6 col-sm-6">
-//                 <div class="product-cart-wrap mb-30">
-//                     <div class="product-img-action-wrap">
-//                         <div class="product-img product-img-zoom">
-//                             <a href="doctor-details.php?id_doctor='.$row['id_doctor'].'">
-//                                 <img class="default-img" src="libs/imgs/doctors/doctor-'.$row['id_doctor'].'.png" alt="">
-//                             </a>
-//                         </div>
-//                     </div>
-//                     <div class="product-content-wrap">
-//                         <h2><a href="doctor-details.php?id_doctor='.$row['id_doctor'].'">'.$row['doctor_lastname'].' '.$row['doctor_name']. ' '.$row['doctor_secondname'].'</a></h2>
-//                         <div class="rating-result" title="90%">
-//                             <span>
-//                                 <span>5,5</span>
-//                             </span>
-//                         </div>
-//                         <div>
-//                             <span>Специальность: '.$row['title_category'].'</span>
-//                         </div>
-//                         <div>
-//                             <span>Тип: '.$row['type'].' врач</span>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//             ';
-//         }
-//         print_r($output);
-//     }
-// }
-
-//Display Services
-// if(isset($_POST['action']) && $_POST['action'] == 'display_services') {
-//     print_r($_POST);
-
-//     //$list = $services->showServices($id);
-
-// }
 ?>

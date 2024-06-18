@@ -39,14 +39,14 @@
                     </ul>
                 </div>
                 <div class="col-lg-2  col-md-3">
-                    <h5 class="widget-title wow fadeIn animated">Аккаунт</h5>
+                    <!-- <h5 class="widget-title wow fadeIn animated">Аккаунт</h5>
                     <ul class="footer-list wow fadeIn animated">
                         <li><a href="user_home.php">Мои записи</a></li>
                         <li><a href="user_home.php">Личная информация</a></li>
                         <li><a href="user_home.php">Онлайн запись</a></li>
                         <li><a href="user_home.php">Выход из аккаунта</a></li>
-                    </ul>
-                </div>
+                    </ul> -->
+                </div> 
                 <div class="col-lg-4 mob-center">
                     <h5 class="widget-title wow fadeIn animated">Запишитесь к нам!</h5>
                     <div class="row">

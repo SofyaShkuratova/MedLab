@@ -69,19 +69,7 @@ require_once "layout/layout_header.php";
                         </div>
                         <div class="row product-grid-3" id="displayCardContainer">
                         </div>
-                        <!--pagination-->
-                        <!-- <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-start">
-                                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">02</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">03</a></li>
-                                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">16</a></li>
-                                    <li class="page-item"><a class="page-link" href="#"><i class="fi-rs-angle-double-small-right"></i></a></li>
-                                </ul>
-                            </nav>
-                        </div> -->
+                        
                     </div>
                     <div class="col-lg-3 primary-sidebar sticky-sidebar">
                         <div class="row">
@@ -125,8 +113,6 @@ require_once "layout/layout_header.php";
     let sortbyValue = 'DESC';
     //если какая-то из сортировок активна
     $('.sort-by-product-area').on('click', function(event) {
-        
-        
         event.preventDefault(); // Отменяем переход по ссылке
 
         $('.num-card').on('click', function(event) {

@@ -121,6 +121,27 @@
             $row = $result->Fetch(PDO::FETCH_ASSOC);
             return $row;
         }
+
+
+        public function deleteRow($id_category) {
+            // Подготовка SQL-запроса с использованием параметров
+            $sql = "DELETE FROM
+                                ".$this->table_name."  
+                                WHERE id_category = :id_category";
+            
+            // Подготовка запроса к базе данных
+            $stmt = $this->conn->prepare($sql);
+            
+            // Связывание параметров с их значениями
+            $stmt->bindParam(':id_category', $id_category);
+            
+            // Выполнение запроса
+            if ($stmt->execute()) {
+                return true; // Запрос успешно выполнен
+            } else {
+                return false; // Ошибка при выполнении запроса
+            }
+        }
     }
 
 ?>

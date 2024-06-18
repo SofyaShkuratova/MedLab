@@ -18,17 +18,13 @@ $reservations = new TimeTable($db);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="utf-8">
     <title> <?= $page_title  ?> | MedLab </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
+    <meta name="description" content="MedLab – веб-сайт медицинского центра. Медицинский центр предлагает большое количество врачей и услуг. Каждый пользователь может записаться на прием без очередей, выбрать себе специалиста, услугу и время.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="keywords" content="центр, врач, медицина, доктор, лечение">
     <link rel="shortcut icon" href="libs/imgs/logo/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
@@ -60,9 +56,7 @@ $reservations = new TimeTable($db);
                             <form action="#">                                
                                 <input type="text" id="search-input" placeholder="Поиск по сайту...">
                             </form>
-                            <div id="searchResult">
-
-                            </div>
+                            <div id="searchResult"></div>
                         </div>
                         <div class="header-action-center">
                                 <?php
@@ -80,14 +74,17 @@ $reservations = new TimeTable($db);
                                                         <p>Добрый день, <?= $cname ?></p>
                                                     </li>
                                                     <li>
-                                                        <a href=''>Визиты</a>
+                                                        <a href='user_home.php'>Личный кабинет</a>
+                                                    </li>
+                                                    <!-- <li>
+                                                        <a href='user_home.php'>Личные данные</a>
                                                     </li>
                                                     <li>
-                                                        <a href=''>Онлайн-запись</a>
+                                                        <a href='user_home.php#orders'>Записи на прием</a>
                                                     </li>
                                                     <li>
-                                                        <a href=''>Профиль</a>
-                                                    </li>
+                                                        <a href='user_home.php#account-detail'>Изменить данные</a>
+                                                    </li> -->
                                                 </ul>
                                                 <div class='shopping-cart-footer'>
                                                     <div class='shopping-cart-button'>
@@ -116,10 +113,11 @@ $reservations = new TimeTable($db);
                                                     
                                                     <?php 
                                                         $stmt2 = $reservations->getTimeTableUser($cid);
-
+                                                        
                                                         if($stmt2) {
                                                             $output = "";
                                                             foreach($stmt2 as $row) {
+                                                                
                                                                 $date = new DateTime($row['date_reserve']);
                                                                 $months = [
                                                                     1 => 'Янв.',
@@ -150,23 +148,10 @@ $reservations = new TimeTable($db);
                                                                 ";
                                                             }
                                                             echo($output);
+                                                        } else {
+                                                            echo "Пока что вы не записались!";
                                                         }
                                                     ?>
-
-                                                    <!-- <li>
-                                                        <div class='shopping-cart-title'>
-                                                            <h4><a href='#'>Лазерная коррекция зрения</a></h4>
-                                                            <h4><span>Дата записи: </span>23 Апр. 12:00</h4>
-                                                        </div>
-        
-                                                    </li>
-                                                    <li>
-                                                        <div class='shopping-cart-title'>
-                                                            <h4><a href='#'>Лазерная очистка десен и полировка зубных камней</a></h4>
-                                                            <h4><span>Дата записи: </span>23 Апр. 14:00</h4>
-                                                        </div>
-                                                        
-                                                    </li> -->
                                                 </ul>
                                                 <div class='shopping-cart-footer'>
                                                 </div>
@@ -214,7 +199,7 @@ $reservations = new TimeTable($db);
                                                     <li>
                                                         <p>Добрый день!<br>Доктор  <?= $clast_name ." ".$cname ?> </p>
                                                     </li>
-                                                    <li>
+                                                    <!-- <li>
                                                         <a href=''>Расписание</a>
                                                     </li>
                                                     <li>
@@ -222,7 +207,7 @@ $reservations = new TimeTable($db);
                                                     </li>
                                                     <li>
                                                         <a href=''>Профиль</a>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                                 <div class='shopping-cart-footer'>
                                                     <div class='shopping-cart-button'>
@@ -286,15 +271,9 @@ $reservations = new TimeTable($db);
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                             <nav>
                                 <ul>
-                                    <li><a class=
-                                        "<?= (basename($_SERVER['PHP_SELF']) == "home.php")?"active":""; ?>"
-                                        href="home.php">Главная </a></li>
-                                    <li><a class=
-                                        "<?= (basename($_SERVER['PHP_SELF']) == "about.php")?"active":""; ?>"
-                                        href="about.php">О компании</a></li>
-                                    <li><a class="<?= (basename($_SERVER['PHP_SELF']) == "doctors.php")?"active":""; ?>" href="doctors.php">Врачи</a></li>
-                                    
-                                                          
+                                    <li><a class="<?= (basename($_SERVER['PHP_SELF']) == "home.php")?"active":""; ?>" href="home.php">Главная </a></li>
+                                    <li><a class="<?= (basename($_SERVER['PHP_SELF']) == "about.php")?"active":""; ?>" href="about.php">О компании</a></li>
+                                    <li><a class="<?= (basename($_SERVER['PHP_SELF']) == "doctors.php")?"active":""; ?>" href="doctors.php">Врачи</a></li>            
                                     <li><a class="<?= (basename($_SERVER['PHP_SELF']) == "contact.php")?"active":""; ?>" href="contact.php">Контакты</a></li>
                                 </ul>
                             </nav>
@@ -308,16 +287,23 @@ $reservations = new TimeTable($db);
                     </div>
                     <div class="header-action-right d-block d-lg-none">
                         <div class="header-action-2">
+                            <?php
+                                if(isset($_SESSION['user'])) {
+                                    if($cid_role == 2) {
+                                        //user
+                                    ?>
                             <div class="header-action-icon-2">
                                 <a href="user_home.php">
                                     <img class="svgInject" alt="MedLab" src="libs/imgs/theme/icons/icon-user.svg">
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="cart.html">
+
+                                <a class="mini-cart-icon" href="user_home.php">
                                     <img alt="MedLab" src="libs/imgs/theme/icons/icon-timetable.svg">
                                     <span class="pro-count blue">2</span>
                                 </a>
+
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
                                         <li>
@@ -364,6 +350,35 @@ $reservations = new TimeTable($db);
                                     </div>
                                 </div>
                             </div>
+                                    <?php 
+                            ?>
+                            
+                            <?php 
+                                    } else {
+                                    //admin
+                                    ?>
+                                    <div class="header-action-icon-2">
+                                        <a href="admin.php">
+                                            <img class="svgInject" alt="MedLab" src="libs/imgs/theme/icons/icon-user.svg">
+                                        </a>
+                                    </div>
+                                <?php
+                                    }
+                               
+                                } else if(isset($_SESSION['doctor'])) {
+                                    //doctor
+                                    ?>
+
+                                <div class="header-action-icon-2">
+                                    <a href="doctor_home.php">
+                                        <img class="svgInject" alt="MedLab" src="libs/imgs/theme/icons/icon-user.svg">
+                                    </a>
+                                </div>
+                                <?php
+                                } else {
+                                    //обычный пользователь
+                                }
+                                ?>
                             <div class="header-action-icon-2 d-block d-lg-none">
                                 <div class="burger-icon burger-icon-white">
                                     <span class="burger-icon-top"></span>
@@ -377,6 +392,7 @@ $reservations = new TimeTable($db);
             </div>
         </div>
     </header>
+
     <div class="mobile-header-active mobile-header-wrapper-style">
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
@@ -391,33 +407,33 @@ $reservations = new TimeTable($db);
                 </div>
             </div>
             <div class="mobile-header-content-area">
-                <div class="mobile-search search-style-3 mobile-header-border">
+                <!-- <div class="mobile-search search-style-3 mobile-header-border">
                     <form action="#" autocomplete="off">
                         <input autocomplete="off" type="text" placeholder="Поиск…">
                         <button type="submit"><i class="fi-rs-search"></i></button>
                     </form>
-                </div>
+                </div> -->
                 <div class="mobile-menu-wrap mobile-header-border">
                     <div class="main-categori-wrap mobile-header-border">
                         <a class="categori-button-active-2" href="#">
                             <span class="fi-rs-apps"></span> Услуги и цены
                         </a>
-                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small" id="showNavCateg2">
                             <ul>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-dress"></i>Стоматология</a></li>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-tshirt"></i>Дерматология</a></li>
-                                <li> <a href="shop.html"><i class="surfsidemedia-font-smartphone"></i> Кардиология</a></li>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-desktop"></i>Онкология</a></li>
                             </ul>
                         </div>
                     </div>
                     <!-- mobile menu start -->
                     <nav>
                         <ul class="mobile-menu">
-                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="home.php">Главная</a></li>
+                            <!-- <li class="menu-item-has-children"><span class="menu-expand"></span><a href="home.php">Главная</a></li>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">О компании</a></li>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="doctors.php">Врачи</a></li>
-                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Контакты</a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Контакты</a></li> -->
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a class="<?= (basename($_SERVER['PHP_SELF']) == "home.php")?"active":""; ?>" href="home.php">Главная </a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a class="<?= (basename($_SERVER['PHP_SELF']) == "about.php")?"active":""; ?>" href="about.php">О компании</a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a class="<?= (basename($_SERVER['PHP_SELF']) == "doctors.php")?"active":""; ?>" href="doctors.php">Врачи</a></li>            
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a class="<?= (basename($_SERVER['PHP_SELF']) == "contact.php")?"active":""; ?>" href="contact.php">Контакты</a></li>
                         </ul>
                     </nav>
                     <!-- mobile menu end -->
@@ -451,6 +467,7 @@ $reservations = new TimeTable($db);
                 success: function(response) {
                     console.log(response);
                     $("#showNavCateg").html(response);
+                    $("#showNavCateg2").html(response);
                 }
             })
         }

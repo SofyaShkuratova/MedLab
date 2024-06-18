@@ -33,15 +33,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_doctortimetable') {
         if($list) {
             $previous_date = null;
             foreach ($list as $row) { 
-                print_r($row['time_work']) ; 
-                $status = '';    
-                if($row['status'] == 'free') {
-                    $status = 'свободная запись';
-                } else if($row['status'] == 'reserve') {
-                    $status = 'пациент записан';
-                } else {
-                    $status = 'отменен';
-                }
                 $time = new DateTime($row['time_work']);
                 $formattedTime = $time->format('H:i');
                 $date = new DateTime($row['date_work']);
@@ -60,15 +51,35 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_doctortimetable') {
                     12 => 'Дек.'
                 ];
                 $formattedDate = $date->format('d ') . $months[(int)$date->format('n')] . $date->format('. Y');
-                $output .= '
-                <tr>
-                    <td >#'.$row['id_doctorservice'].'</td>
-                    <td>'.$formattedDate.'</td>
-                    <td>'.$formattedTime.'</td>
-                    <td>'.$status.'</td>
-                    <td><button class="cancel-row close-btn bg-danger text-danger bg-danger" id="cancel-'.$row['id_doctorservice'].'">&times;</button></td>
-                </tr>
-                ';
+                // print_r($row['time_work']) ; 
+                $status = '';    
+                if($row['status'] == 'free') {
+                    $status = 'свободная запись';
+                } else if($row['status'] == 'reserve') {
+                    $status = 'пациент записан';
+                    $output .= '
+                        <tr>
+                            <td >#'.$row['id_doctorservice'].'</td>
+                            <td>'.$formattedDate.'</td>
+                            <td>'.$formattedTime.'</td>
+                            <td>'.$status.'</td>
+                            <td>
+                                <button class="cancel-row close-btn bg-danger text-danger bg-danger" id="cancel-'.$row['id_doctorservice'].'">&times;</button>
+                            </td>
+                        </tr>
+                    ';
+                } else {
+                    $status = 'отменен';
+                    $output .= '
+                        <tr>
+                            <td class="text-danger">#'.$row['id_doctorservice'].'</td>
+                            <td class="text-danger">'.$formattedDate.'</td>
+                            <td class="text-danger">'.$formattedTime.'</td>
+                            <td class="text-danger">'.$status.'</td>
+                            <td class="text-danger"></td>
+                        </tr>
+                    ';
+                }
             }
             // $output .= "</tr>";
             print_r($output) ; 
@@ -100,10 +111,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_timetable') {
                     $status = 'отменен';
                 }
                 // Check if the current date is the same as the previous date
+                $time = new DateTime($row['time_work']);
+                $formattedTime = $time->format('H:i');
+
                 if($row['status'] == 'free') {
                     if($current_date == $previous_date) {
-                        $time = new DateTime($row['time_work']);
-                        $formattedTime = $time->format('H:i');
+                        
                         $output .= '
                         <tr>
                             <td >#'.$row['id_doctorservice'].'</td>
@@ -114,8 +127,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_timetable') {
                         </tr>
                         ';
                     } else{
-                        $time = new DateTime($row['time_work']);
-                        $formattedTime = $time->format('H:i');
                         $date = new DateTime($row['date_work']);
                         $months = [
                             1 => 'Янв.',
@@ -144,8 +155,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_timetable') {
                     }
                 } else if($row['status'] == 'reserve'){
                     if($current_date == $previous_date) {
-                        $time = new DateTime($row['time_work']);
-                        $formattedTime = $time->format('H:i');
                         $output .= '
                         <tr>
                             <td class="text-success">#'.$row['id_doctorservice'].'</td>
@@ -231,17 +240,35 @@ if(isset($_POST['action']) && $_POST['action'] == 'add_timetable') {
     $date = $_POST['date'];
     $newDate = strtotime(str_replace('.', '-', $date));
     $date_work = date('Y-m-d', $newDate);
+   
 
     $time = $_POST['time'];
-    $time_work = date("H:i:s", mktime($time, 0, 0));
+    $time_work = date("H:i", mktime($time, 0, 0));
 
     $output = '';
 
     if($doctorsservices->date_exist($date_work, $time_work, $id_doctor)) {
         $exist_date = $date_work;
+        $date = new DateTime($exist_date);
+        $months = [
+            1 => 'Янв.',
+            2 => 'Февр.',
+            3 => 'Март',
+            4 => 'Апр.',
+            5 => 'Май',
+            6 => 'Июнь',
+            7 => 'Июль',
+            8 => 'Авг.',
+            9 => 'Сент.',
+            10 => 'Окт.',
+            11 => 'Нояб.',
+            12 => 'Дек.'
+        ];
+        $formattedDate = $date->format('d ') . $months[(int)$date->format('n')] . $date->format('. Y');
+
         $exist_time = $time_work;
         $output .= '<div class="text-warning error-div mt-5" >    
-                        <strong>Дата: '.$exist_date.' 
+                        <strong>Дата: '.$formattedDate.' 
                         <br>Время: '.$exist_time.' уже существуют</strong>
                         <button class="close-btn text-warning bg-warning" >&times;</button>
                     </div>';
@@ -252,9 +279,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'add_timetable') {
         }
     }
     print_r($output);
-
-    
-
 }
 
 

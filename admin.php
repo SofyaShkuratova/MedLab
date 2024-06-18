@@ -115,6 +115,7 @@ require_once "layout/layout_header.php";
                                                         <tr>
                                                             <th colspan="2">Категория</th>
                                                             <th>Описание</th>
+                                                            <th>Удалить</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="showTableCat">
@@ -328,71 +329,6 @@ require_once "layout/layout_footer.php";
             }
         })
 
-        displayCategories();
-        //Display Categories value #
-        function displayCategories() {
-            $.ajax({
-                url: 'ajax/admin-data.php',
-                method: 'post',
-                data: { action: 'display_category' },
-                success: function(response) {
-                    console.log(response);
-                    $("#showCategory").html(response);
-                    $("#showCategory2").html(response);
-                }
-            })
-        }
-        displayCategories1();
-        function displayCategories1() {
-            $.ajax({
-                url: 'ajax/admin-data.php',
-                method: 'post',
-                data: { action: 'display_category1' },
-                success: function(response) {
-                    console.log(response);
-                    $("#showCategory2").html(response);
-                }
-            })
-        }
-
-        displayTableCat();
-        function displayTableCat() {
-            $.ajax({
-                url: 'ajax/admin-data.php',
-                method: 'post',
-                data: { action: 'display_tableCat' },
-                success: function(response) {
-                    // console.log(response);
-                    $("#showTableCat").html(response);
-                }
-            })
-        }
-        displayTableServ();
-        function displayTableServ() {
-            $.ajax({
-                url: 'ajax/admin-data.php',
-                method: 'post',
-                data: { action: 'display_tableServ' },
-                success: function(response) {
-                    // console.log(response);
-                    $("#showTableServ").html(response);
-                }
-            })
-        }
-        
-        displayTableDoct();
-        function displayTableDoct() {
-            $.ajax({
-                url: 'ajax/admin-data.php',
-                method: 'post',
-                data: { action: 'display_tableDoctors' },
-                success: function(response) {
-                    // console.log(response);
-                    $("#showTableDoc").html(response);
-                }
-            })
-        }
-
         //Add Service
         $('#create-serv-btn').on("click", function (e) {
             if ($("#create-service-form")[0].checkValidity()) {
@@ -486,5 +422,131 @@ require_once "layout/layout_footer.php";
                 }
             }
         })
-    })
+    });
+
+    displayCategories();
+        //Display Categories value #
+        function displayCategories() {
+            $.ajax({
+                url: 'ajax/admin-data.php',
+                method: 'post',
+                data: { action: 'display_category' },
+                success: function(response) {
+                    console.log(response);
+                    $("#showCategory").html(response);
+                    // $("#showCategory2").html(response);
+                }
+            })
+        }
+        displayCategories1();
+        function displayCategories1() {
+            $.ajax({
+                url: 'ajax/admin-data.php',
+                method: 'post',
+                data: { action: 'display_category1' },
+                success: function(response) {
+                    console.log(response);
+                    $("#showCategory2").html(response);
+                }
+            })
+        }
+
+        displayTableCat();
+        function displayTableCat() {
+            $.ajax({
+                url: 'ajax/admin-data.php',
+                method: 'post',
+                data: { action: 'display_tableCat' },
+                success: function(response) {
+                    // console.log(response);
+                    $("#showTableCat").html(response);
+                }
+            })
+        }
+        displayTableServ();
+        function displayTableServ() {
+            $.ajax({
+                url: 'ajax/admin-data.php',
+                method: 'post',
+                data: { action: 'display_tableServ' },
+                success: function(response) {
+                    // console.log(response);
+                    $("#showTableServ").html(response);
+                }
+            })
+        }
+        
+        displayTableDoct();
+        function displayTableDoct() {
+            $.ajax({
+                url: 'ajax/admin-data.php',
+                method: 'post',
+                data: { action: 'display_tableDoctors' },
+                success: function(response) {
+                    // console.log(response);
+                    $("#showTableDoc").html(response);
+                }
+            })
+        }
+
+
+    $(document).on("click", ".delete-row-category", function(e) {
+        id_row = $(this).attr("id").split("-")[1];
+        console.log("ID delete row:" + id_row);
+
+        $.ajax({
+                url:'ajax/admin-data.php',
+                method: 'post',
+                data: {action: "delete_row_cat", id_row: id_row},
+                success: function(response) {
+                    // $("#typeError").html(response);
+                    console.log(response);
+                    displayTableCat();
+                    displayCategories1();
+                    displayCategories();
+                },
+                error: function(xhr, status, error){
+                    console.log("Status: " + status);
+                    console.log("Error: " + error);
+                }
+            });
+    });
+    $(document).on("click", ".delete-row-service", function(e) {
+        id_row = $(this).attr("id").split("-")[1];
+        console.log("ID delete row:" + id_row);
+
+        $.ajax({
+                url:'ajax/admin-data.php',
+                method: 'post',
+                data: {action: "delete_row_serv", id_row: id_row},
+                success: function(response) {
+                    // $("#typeError").html(response);
+                    console.log(response);
+                    displayTableServ();;
+                },
+                error: function(xhr, status, error){
+                    console.log("Status: " + status);
+                    console.log("Error: " + error);
+                }
+            });
+    });
+    $(document).on("click", ".delete-row-doctor", function(e) {
+        id_row = $(this).attr("id").split("-")[1];
+        console.log("ID delete row:" + id_row);
+
+        $.ajax({
+                url:'ajax/admin-data.php',
+                method: 'post',
+                data: {action: "delete_row_doc", id_row: id_row},
+                success: function(response) {
+                    // $("#typeError").html(response);
+                    console.log(response);
+                    displayTableDoct();
+                },
+                error: function(xhr, status, error){
+                    console.log("Status: " + status);
+                    console.log("Error: " + error);
+                }
+            });
+    });
 </script>

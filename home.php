@@ -51,7 +51,7 @@ require_once "layout/layout_header.php";
                     </div>
                     <div class="col-lg-7 col-md-6">
                         <div class="single-slider-img single-slider-img-1">
-                            <img class="animated slider-1-1" src="libs/imgs/slider/slider-1.png" alt="">
+                            <img class="animated slider-1-1" src="libs/imgs/slider/slider-1.png" alt="Яркий персонаж-специалист медицинского центра" title="Милый персонаж из медицинского центра">
                         </div>
                     </div>
                 </div>
@@ -75,10 +75,7 @@ require_once "layout/layout_header.php";
                     <div class="col-lg-6">
                         <video  controls poster="libs/imgs/video/poster.png">
                             <source src="libs/imgs/video/explainer.mp4" type="video/mp4">
-                            <!-- <source src="assets/imgs/video/movie.ogg" type="video/ogg"> -->
-                            Ваш браузер не поддерживает элемент видео.
                         </video>
-                        <!-- <img src="assets/imgs/page/about-1.png" alt=""> -->
                     </div>
                 </div>
         </div>
@@ -99,7 +96,7 @@ require_once "layout/layout_header.php";
                         <div class='product-img-action-wrap'>
                             <div class='product-img product-img-zoom'>
                                 <a href='product-detail.php?id_category={$id_category}'>
-                                    <img class='default-img' src='{$photo}' alt=''>
+                                    <img class='default-img' src='{$photo}' alt='Рисованное изображение медицинской услуги' title='Милая картинка медицинского персонажа'>
                                 </a>
                             </div>
                         </div>
@@ -130,7 +127,7 @@ require_once "layout/layout_header.php";
                         <div class="product-img-action-wrap">
                             <div class="product-img product-img-zoom">
                                 <a href="doctor-details.php?id_doctor=<?=$row['id_doctor']?>">
-                                    <img class="default-img" src="libs/imgs/doctors/doctor-<?=$row['id_doctor']?>.png" alt="">
+                                    <img class="default-img" src="libs/imgs/doctors/doctor-<?=$row['id_doctor']?>.png" alt="Фото специалиста медицинского центра" title="Фотография врача">
                                 </a>
                             </div>
                         </div>
@@ -142,7 +139,7 @@ require_once "layout/layout_header.php";
 
                         if ($reviewStar) {
                             $rate = ($reviewStar['AVG(review_star)']*20);
-                            $num = ($reviewStar['AVG(review_star)']*1);
+                            $num = round(($reviewStar['AVG(review_star)']*1), 1);
                             // print_r($rate);
                             $output = '';
                             $output .= '

@@ -34,17 +34,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'register') {
             echo $users->showMessage('text-danger', 'Something went wrong! try again later!', '', '');
         }
     }
-    // 
-    //echo json_encode();
 }
 
-// $users->create();
-
-
-
-// if($insert_query > 0) {
-//     echo "Data submitted successfuly";
-// } else {
-//     echo "Error!";
-// }
 ?>

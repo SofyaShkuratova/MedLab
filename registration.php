@@ -158,7 +158,7 @@ require_once "layout/layout_footer.php";
                   $("#rpassword").removeClass("border-danger bg-danger");
                 }
 
-                let nameRegex =  /^[a-zA-Z]+$/ ;
+                let nameRegex =  /^[a-zA-Zа-яА-Я]+$/ ;
                 if (!nameRegex.test($("#name").val()) ) {
                   $("#nameError").text('* Имя должно содержать только буквы');
                   $("#nameError").addClass("text-danger");

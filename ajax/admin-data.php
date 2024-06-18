@@ -34,7 +34,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'createcateg') {
         echo $users->showMessage('text-warning','Эта категория уже существует!', 'bg-warning','text-warning');
     } else {
         if($categories->createCategory($title_category, $description_category, $combined_photo)) {
-            echo $users->showMessage('text-sucсess','Категория создана!', 'text-success','bg-success');
+            echo $users->showMessage('text-success','Категория создана!', 'text-success','bg-success');
         } else {
             echo $users->showMessage('text-danger','Категория не создана!', 'text-danger','bg-danger');
         }
@@ -322,6 +322,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_tableDoctors') {
                 </td>
                 <td>'.$row['login'].'</td>
                 <td>'.$row['title_category'].'</td>
+                <td>
+                    <button class="delete-row-doctor close-btn bg-danger text-danger bg-danger" id="deletedoctor-'.$row['id_doctor'].'"" >&times;</button>
+                </td>
             </tr>';
         }
         print_r($output);
@@ -344,6 +347,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_tableServ') {
                 <td>'.$row['description_service'].'</td>
                 <td>'.$row['price'].'</td>
                 <td>'.$row['title_category'].'</td>
+                <td>
+                    <button class="delete-row-service close-btn bg-danger text-danger bg-danger" id="deleteservice-'.$row['id_service'].'"" >&times;</button>
+                </td>
             </tr>';
         }
         print_r($output);
@@ -365,6 +371,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_tableCat') {
                     <h5><a href="product-detail.php?id_category='.$row['id_category'].'">'.$row['title_category'].'</a></h5>
                 </td>
                 <td>'.$row['description_category'].'</td>
+                <td>
+                    <button class="delete-row-category close-btn bg-danger text-danger bg-danger" id="deletecategory-'.$row['id_category'].'"" >&times;</button>
+                </td>
             </tr>';
         }
         print_r($output);
@@ -377,14 +386,16 @@ if(isset($_POST['action']) && $_POST['action'] == 'createdoctor') {
     $doctor_name = $users->test_input($_POST['name']);
     $doctor_lastname = $users->test_input($_POST['last']);
     $doctor_secondname = $users->test_input($_POST['second']);
-    $id_category = $users->test_input($_POST['id_category']);
+    $id_category = $_POST['id_category'];
     $login = $users->test_input($_POST['login']);
     $password = $users->test_input($_POST['password']);
+    
+    $hpassword = password_hash($password, PASSWORD_DEFAULT);
 
     if($doctors->doctor_exist($login)) {
         echo $users->showMessage('text-warning','Этот логин уже существует!', 'text-warning','bg-warning');
     } else {
-        if($doctors->createDoctor($doctor_name, $doctor_lastname, $doctor_secondname, $id_category, $login, $password)) {
+        if($doctors->createDoctor($doctor_name, $doctor_lastname, $doctor_secondname, $id_category, $login, $hpassword)) {
             echo $users->showMessage('text-success','Врач создан!', 'text-success','bg-success');
         } else {
             echo $users->showMessage('text-danger','Услуга не создана!', 'text-danger','bg-danger');
@@ -416,10 +427,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_category') {
 
 if(isset($_POST['action']) && $_POST['action'] == 'display_category1') {
     $output = '';
-
     $list = $categories->get_category();
-
-
     if($list) {
         $output .= "<select class='form-control select-active' id='id_category1'>
         <option value='0'>Категория...</option>";
@@ -432,6 +440,40 @@ if(isset($_POST['action']) && $_POST['action'] == 'display_category1') {
         echo '<h3>Еще нет ни одной категории!</h3>';
     }
     //print_r($list);
+}
+
+//удаление категории
+if(isset($_POST['action']) && $_POST['action'] == 'delete_row_cat') {
+    $id_row = $_POST['id_row'];
+
+    $list = $categories->deleteRow($id_row);
+    if($list) {
+        echo $users->showMessage('text-success','Категория удалена', 'bg-success','text-success');
+    } else {
+        echo $users->showMessage('text-warning','Что-то пошло не так', 'bg-warning','text-warning');
+    }
+}
+//удаление категории
+if(isset($_POST['action']) && $_POST['action'] == 'delete_row_serv') {
+    $id_row = $_POST['id_row'];
+
+    $list = $services->deleteRow($id_row);
+    if($list) {
+        echo $users->showMessage('text-success','Услуга удалена', 'bg-success','text-success');
+    } else {
+        echo $users->showMessage('text-warning','Что-то пошло не так', 'bg-warning','text-warning');
+    }
+}
+//удаление категории
+if(isset($_POST['action']) && $_POST['action'] == 'delete_row_doc') {
+    $id_row = $_POST['id_row'];
+
+    $list = $doctors->deleteRowDoctor($id_row);
+    if($list) {
+        echo $users->showMessage('text-success','Доктор удален', 'bg-success','text-success');
+    } else {
+        echo $users->showMessage('text-warning','Что-то пошло не так', 'bg-warning','text-warning');
+    }
 }
 
 

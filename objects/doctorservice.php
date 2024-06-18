@@ -17,10 +17,11 @@ class DoctorService {
                 AND id_doctor =:id_doctor
                 AND status = 'free'
                 AND (
-                    (date_work = CURDATE() AND time_work >= DATE_ADD(NOW(), INTERVAL 2 HOUR))
-                    OR date_work > CURDATE()
-                  );
-                ";   
+                        (date_work = CURDATE() AND time_work >= DATE_ADD(NOW(), INTERVAL 2 HOUR))
+                        OR date_work > CURDATE()
+                    )
+                LIMIT 10"
+                ;   
         
         $result = $this->conn->prepare($sql);
         $result->execute(['id_category'=>$id_category, 'id_doctor'=>$id_doctor]);
@@ -119,11 +120,10 @@ class DoctorService {
         FROM
         ".$this->table_name."
         WHERE id_doctor =:id_doctor AND date_work >= :today
-        AND status = :status
         ORDER BY date_work ASC, time_work ASC  
         ";
         $result = $this->conn->prepare($sql);
-        $result->execute(['id_doctor'=>$id_doctor, 'today' => $today, 'status' => 'reserve']);
+        $result->execute(['id_doctor'=>$id_doctor, 'today' => $today]);
 
         $row = $result->fetchAll(PDO::FETCH_ASSOC);
         return $row;

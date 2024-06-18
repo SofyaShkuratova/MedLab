@@ -75,7 +75,6 @@ require_once "layout/layout_header.php";
                                                     <?php 
                                                         $reviewStar = $reviews->reviewStar($index);
                                                         // print_r($reviewStar);
-
                                                         if ($reviewStar) {
                                                             $rate = ($reviewStar['AVG(review_star)']*20);
                                                             $output = '
@@ -83,8 +82,6 @@ require_once "layout/layout_header.php";
                                                             ';  
                                                             echo($output);
                                                         }
-                                                        
-
                                                     ?>
                                                     <!--<div class="product-rating" style="width:'.$row['AVG(review_star)'].'%"></div> -->
                                                 </div>
@@ -144,8 +141,8 @@ require_once "layout/layout_header.php";
                                                                 foreach($listReview as $row) {
                                                                     $output .= '
                                                                     <div class="single-comment justify-content-between d-flex">
-                                                                        <div class="user justify-space-between d-flex">
-                                                                            <div class="desc">
+                                                                        <div class="user justify-content-between d-flex">
+                                                                            <div class="desc" id="full-comment">
                                                                                 <p><a href="#">'.$row['last_name'].' '.$row['name'].'</a></p>
                                                                                 <span>'.$row['text_review'].'</span>
                                                                             </div>
@@ -159,7 +156,6 @@ require_once "layout/layout_header.php";
                                                                     ';
                                                                 }
                                                                 echo($output);
-
                                                             }
                                                             
                                                         ?>
@@ -211,13 +207,4 @@ require_once "layout/layout_header.php";
 require_once "layout/layout_footer.php";
 ?>
 
-<?php
-$stmt = $categories->read();
-
-while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)) {
-extract($row_category);
-echo "
-<li><a href='product-detail.php?id_category={$id_category}'>{$title_category}</a></li>
-";                                          
-}
 ?>                                                                                                              
